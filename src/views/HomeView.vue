@@ -1,5 +1,5 @@
 <script setup>
-import HomeLogado from './LogadoView.vue'
+import HomeLogado from './ProdutosView.vue'
 </script>
 
 <template>

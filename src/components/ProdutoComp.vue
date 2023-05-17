@@ -1,5 +1,10 @@
 <script>
+import { RouterLink } from 'vue-router'
+
 export default {
+  components: {
+    RouterLink
+  },
   props: {
     nome: String,
     preco: Number,
@@ -8,11 +13,13 @@ export default {
 }
 </script>
 <template>
-  <div class="caixa">
-    <img :src="foto" alt="Sexo" class="fotoProd" />
-    <h1 class="precoProd">R${{ preco }}</h1>
-    <h3 class="nomeProd">{{ nome }}</h3>
-  </div>
+  <RouterLink to="/produto">
+    <div class="caixa">
+      <img :src="foto" alt="Sexo" class="fotoProd" />
+      <h1 class="precoProd">R${{ preco }}</h1>
+      <h3 class="nomeProd">{{ nome }}</h3>
+    </div>
+  </RouterLink>
 </template>
 <style scoped>
 .caixa {
