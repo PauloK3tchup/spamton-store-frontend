@@ -31,8 +31,8 @@ library.add(faShoppingCart, faSearch)
         <RouterLink class="lado" to="/about">Categorias</RouterLink>
         <RouterLink class="lado" to="/about">Histórico</RouterLink>
         <RouterLink class="lado" to="/about">Contato</RouterLink>
-        <RouterLink class="lado" to="/about">Entrar</RouterLink>
-        <RouterLink class="lado" to="/about">Criar Conta</RouterLink>
+        <RouterLink class="lado" to="/login">Entrar</RouterLink>
+        <RouterLink class="lado" to="/cadastro">Criar Conta</RouterLink>
       </div>
     </div>
   </header>
@@ -92,11 +92,11 @@ header {
 }
 
 .pesquisa {
-  width: 25%;
+  width: 30%;
 }
 
 .nomeLogo {
-  width: 10%;
+  width: 12%;
   margin: 5px;
 }
 
