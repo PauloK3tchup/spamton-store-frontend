@@ -1,17 +1,21 @@
+<script>
+export default {
+  props: {
+    nome: String,
+    preco: Number,
+    foto: String
+  }
+}
+</script>
 <template>
   <div class="caixa">
-    <img
-      src="https://www.infoescola.com/wp-content/uploads/2010/04/banana_600797891.jpg"
-      alt="Sexo"
-      class="fotoProd"
-    />
-    <h1 class="precoProd">R$ 700,00</h1>
-    <h3 class="nomeProd">Banana (tem potássio)</h3>
+    <img :src="foto" alt="Sexo" class="fotoProd" />
+    <h1 class="precoProd">R${{ preco }}</h1>
+    <h3 class="nomeProd">{{ nome }}</h3>
   </div>
 </template>
 <style scoped>
 .caixa {
-  display: inline-block;
   width: 250px;
   height: 300px;
   background-color: #000;
