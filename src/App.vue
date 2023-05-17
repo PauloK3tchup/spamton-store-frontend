@@ -19,7 +19,7 @@ library.add(faShoppingCart, faSearch)
               <h1>Spamton Store</h1>
             </div>
             <div class="pesquisa">
-              <input type="text" placeholder="Pesquisa" />
+              <input class="pesquisaInput" type="text" placeholder="Pesquisa" />
               <button class="enviar"><FontAwesomeIcon icon="fa-search" /></button>
               <button class="carrinho"><FontAwesomeIcon icon="fa-shopping-cart" /></button>
             </div>
@@ -43,6 +43,10 @@ library.add(faShoppingCart, faSearch)
 .lado {
   margin: 0 1rem;
   transition: 0.15s;
+}
+
+.pesquisaInput:focus {
+  outline: none;
 }
 
 .lado:hover {
@@ -93,11 +97,16 @@ header {
 
 .pesquisa {
   width: 30%;
+  transition: 0.15s;
 }
 
 .nomeLogo {
   width: 12%;
   margin: 5px;
+}
+
+.pesquisa:focus-within {
+  width: 60%;
 }
 
 img {
@@ -110,7 +119,7 @@ img {
 input {
   padding: 10px;
   border: none;
-  width: 80%;
+  width: 50%;
   transition: 0.25s;
 }
 

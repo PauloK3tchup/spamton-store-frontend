@@ -1,5 +1,5 @@
 <script setup>
-import HomeLogado from '../components/HomeLogado.vue'
+import HomeLogado from './LogadoView.vue'
 </script>
 
 <template>
