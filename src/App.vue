@@ -106,7 +106,7 @@ header {
 }
 
 .pesquisa:focus-within {
-  width: 60%;
+  width: 40%;
 }
 
 img {
@@ -119,7 +119,7 @@ img {
 input {
   padding: 10px;
   border: none;
-  width: 50%;
+  width: 80%;
   transition: 0.25s;
 }
 
