@@ -55,7 +55,7 @@ export default {
 .precoPromo {
   color: #00ff22;
   font-size: 20px;
-  margin: -5px 10px 0 10px;
+  margin: -5px 10px -5px 10px;
 }
 
 .precoVelho {
