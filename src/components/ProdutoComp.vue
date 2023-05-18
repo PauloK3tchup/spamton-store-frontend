@@ -8,7 +8,9 @@ export default {
   props: {
     nome: String,
     preco: Number,
-    foto: String
+    foto: String,
+    precoPromo: Number,
+    promo: Boolean
   }
 }
 </script>
@@ -16,7 +18,9 @@ export default {
   <RouterLink to="/produto">
     <div class="caixa">
       <img :src="foto" alt="Sexo" class="fotoProd" />
-      <h1 class="precoProd">R${{ preco }}</h1>
+      <h1 v-if="promo == false" class="precoProd">R${{ preco }}</h1>
+      <p v-if="promo == true" class="precoVelho">R${{ preco }}</p>
+      <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1>
       <h3 class="nomeProd">{{ nome }}</h3>
     </div>
   </RouterLink>
@@ -48,6 +52,19 @@ export default {
   font-size: 20px;
   margin: 10px;
 }
+.precoPromo {
+  color: #00ff22;
+  font-size: 20px;
+  margin: -5px 10px 0 10px;
+}
+
+.precoVelho {
+  color: #ff0000;
+  font-size: 12px;
+  margin: 5px 5px 0 10px;
+  text-decoration: line-through;
+}
+
 .nomeProd {
   color: #b4b4b4;
   font-size: 15px;
@@ -70,6 +87,17 @@ export default {
     font-size: 13px;
     margin: 5px;
   }
+
+  .precoPromo {
+    font-size: 13px;
+    margin: -5px 5px -5px 5px;
+  }
+
+  .precoVelho {
+    font-size: 8px;
+    margin: 5px;
+  }
+
   .nomeProd {
     font-size: 10px;
     margin: 5px;
