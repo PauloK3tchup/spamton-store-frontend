@@ -49,8 +49,30 @@ export default {
   margin: 10px;
 }
 .nomeProd {
-  color: #fff;
+  color: #b4b4b4;
   font-size: 15px;
   margin: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .caixa {
+    width: 170px;
+    height: 204px;
+    margin: 5px;
+  }
+  .fotoProd {
+    width: 100%;
+    height: 136px;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .precoProd {
+    font-size: 13px;
+    margin: 5px;
+  }
+  .nomeProd {
+    font-size: 10px;
+    margin: 5px;
+  }
 }
 </style>

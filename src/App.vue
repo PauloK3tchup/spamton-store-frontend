@@ -9,37 +9,43 @@ library.add(faShoppingCart, faSearch)
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <div class="logoPesq">
-          <div class="flex-container">
-            <div class="nomeLogo">
-              <img src="./assets/SpamtonOverworld.png" alt="Spamton logo" />
-              <h1>Spamton Store</h1>
-            </div>
-            <div class="pesquisa">
-              <input class="pesquisaInput" type="text" placeholder="Pesquisa" />
-              <button class="enviar"><FontAwesomeIcon icon="fa-search" /></button>
+  <body>
+    <header>
+      <div class="wrapper">
+        <nav>
+          <div class="logoPesq">
+            <div class="flex-container">
+              <div class="nomeLogo">
+                <img src="./assets/SpamtonOverworld.png" alt="Spamton logo" />
+                <h1>Spamton Store</h1>
+              </div>
+              <div class="pesquisa">
+                <input class="pesquisaInput" type="text" placeholder="Pesquisa" />
+                <button class="enviar"><FontAwesomeIcon icon="fa-search" /></button>
+              </div>
               <button class="carrinho"><FontAwesomeIcon icon="fa-shopping-cart" /></button>
             </div>
           </div>
+        </nav>
+        <div class="baixo">
+          <RouterLink class="lado" to="/">Home</RouterLink>
+          <RouterLink class="lado" to="/about">Categorias</RouterLink>
+          <RouterLink class="lado" to="/about">Histórico</RouterLink>
+          <RouterLink class="lado" to="/about">Contato</RouterLink>
+          <RouterLink class="lado" to="/login">Entrar</RouterLink>
+          <RouterLink class="lado" to="/cadastro">Criar Conta</RouterLink>
         </div>
-      </nav>
-      <div class="baixo">
-        <RouterLink class="lado" to="/">Home</RouterLink>
-        <RouterLink class="lado" to="/about">Categorias</RouterLink>
-        <RouterLink class="lado" to="/about">Histórico</RouterLink>
-        <RouterLink class="lado" to="/about">Contato</RouterLink>
-        <RouterLink class="lado" to="/login">Entrar</RouterLink>
-        <RouterLink class="lado" to="/cadastro">Criar Conta</RouterLink>
       </div>
-    </div>
-  </header>
-  <RouterView />
+    </header>
+    <RouterView />
+  </body>
 </template>
 
 <style scoped>
+body {
+  margin: 0;
+}
+
 .lado {
   margin: 0 1rem;
   transition: 0.15s;
@@ -64,12 +70,10 @@ library.add(faShoppingCart, faSearch)
   color: #ffffff;
   font-weight: bold;
   cursor: pointer;
-  margin-left: 10px;
   transition: 0.15s;
 }
 
 .carrinho:hover {
-  padding: 10px;
   border: 1px solid #000000;
   background-color: #ffffff;
   color: #000000;
@@ -96,17 +100,17 @@ header {
 }
 
 .pesquisa {
-  width: 30%;
+  width: 400px;
   transition: 0.15s;
 }
 
 .nomeLogo {
-  width: 12%;
+  width: 200px;
   margin: 5px;
 }
 
 .pesquisa:focus-within {
-  width: 40%;
+  width: 600px;
 }
 
 img {
@@ -136,5 +140,34 @@ button.enviar {
 button.enviar:hover {
   background-color: #000000;
   color: #ffffff;
+}
+
+@media only screen and (max-width: 600px) {
+  .flex-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .baixo {
+    flex-direction: column;
+  }
+
+  .pesquisa {
+    width: 100%;
+    margin-top: 10px;
+    justify-content: center;
+  }
+
+  .carrinho {
+    margin-top: 10px;
+  }
+
+  .pesquisa:focus-within {
+    width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
 }
 </style>
