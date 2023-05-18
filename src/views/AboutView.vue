@@ -1,15 +1,16 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <p>
+      Projeto feito por <a href="https://github.com/PauloK3tchup">Paulo César Nicolau Padilha</a> e
+      <a href="https://github.com/Brobss">Gabriel Fernandes Domingos</a> como projeto integrador
+      2023
+    </p>
   </div>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
+.about {
+  margin: 20px;
+  font-size: 20px;
 }
 </style>

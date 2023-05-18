@@ -155,7 +155,7 @@ button.enviar:hover {
   .pesquisa {
     width: 100%;
     margin-top: 10px;
-    justify-content: center;
+    align-self: center;
   }
 
   .carrinho {

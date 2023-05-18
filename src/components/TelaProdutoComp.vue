@@ -2,9 +2,12 @@
 export default {
   data() {
     return {
-      nome: 'Banana Foda',
+      nome: 'Banana muito foda',
       preco: 700,
-      foto: 'https://www.infoescola.com/wp-content/uploads/2010/04/banana_600797891.jpg'
+      precoPromo: null,
+      foto: 'https://www.infoescola.com/wp-content/uploads/2010/04/banana_600797891.jpg',
+      id: 1,
+      promo: false
     }
   }
 }
