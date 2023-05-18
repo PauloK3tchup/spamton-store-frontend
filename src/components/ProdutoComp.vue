@@ -75,7 +75,7 @@ export default {
   .caixa {
     width: 170px;
     height: 204px;
-    margin: 5px;
+    margin: 10px 5px 5px 5px;
   }
   .fotoProd {
     width: 100%;
