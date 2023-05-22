@@ -1,14 +1,21 @@
 <script>
+import testeApi from "../api/teste"
+import { useCounterStore } from "../stores/counter";
+import { mapStores, mapActions, mapState } from "pinia";
+
+
 export default {
   data() {
     return {
-      nome: 'Banana muito foda',
-      preco: 700,
-      precoPromo: null,
-      foto: 'https://www.infoescola.com/wp-content/uploads/2010/04/banana_600797891.jpg',
-      id: 1,
-      promo: false
+      produtos: testeApi.produtos
     }
+  },
+  computed: {
+    ...mapStores(useCounterStore),
+    ...mapState(useCounterStore, ["prodId", "prodSelec"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["pesquisar"]),
   }
 }
 </script>

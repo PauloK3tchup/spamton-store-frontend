@@ -1,5 +1,7 @@
 <script>
 import { RouterLink } from 'vue-router'
+import { useCounterStore } from "../stores/counter";
+import { mapStores, mapActions, mapState } from "pinia";
 
 export default {
   components: {
@@ -10,7 +12,15 @@ export default {
     preco: Number,
     foto: String,
     precoPromo: Number,
-    promo: Boolean
+    promo: Boolean,
+    id: Number
+  },
+  computed: {
+    ...mapStores(useCounterStore),
+    ...mapState(useCounterStore, ["prodId", "prodSelec"]),
+  },
+  methods: {
+    ...mapActions(useCounterStore, ["pesquisar"]),
   }
 }
 </script>
@@ -38,6 +48,7 @@ export default {
 .caixa:hover {
   transform: scale(1.1);
 }
+
 .caixa:active {
   transform: scale(0.9);
 }
@@ -47,11 +58,13 @@ export default {
   height: 200px;
   border-radius: 10px 10px 0 0;
 }
+
 .precoProd {
   color: #fff;
   font-size: 20px;
   margin: 10px;
 }
+
 .precoPromo {
   color: #00ff22;
   font-size: 20px;
@@ -77,6 +90,7 @@ export default {
     height: 204px;
     margin: 10px 5px 5px 5px;
   }
+
   .fotoProd {
     width: 100%;
     height: 136px;

@@ -4,10 +4,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faShoppingCart, faSearch)
+library.add(faShoppingCart, faSearch, faBars)
 </script>
-
 <template>
   <body>
     <header>
@@ -21,19 +21,28 @@ library.add(faShoppingCart, faSearch)
               </div>
               <div class="pesquisa">
                 <input class="pesquisaInput" type="text" placeholder="Pesquisa" />
-                <button class="enviar"><FontAwesomeIcon icon="fa-search" /></button>
+                <button class="enviar">
+                  <FontAwesomeIcon icon="fa-search" />
+                </button>
               </div>
-              <button class="carrinho"><FontAwesomeIcon icon="fa-shopping-cart" /></button>
+              <button class="carrinho">
+                <FontAwesomeIcon icon="fa-shopping-cart" />
+              </button>
             </div>
           </div>
         </nav>
-        <div class="baixo">
-          <RouterLink class="lado" to="/">Home</RouterLink>
-          <RouterLink class="lado" to="/about">Categorias</RouterLink>
-          <RouterLink class="lado" to="/about">Histórico</RouterLink>
-          <RouterLink class="lado" to="/about">Contato</RouterLink>
-          <RouterLink class="lado" to="/login">Entrar</RouterLink>
-          <RouterLink class="lado" to="/cadastro">Criar Conta</RouterLink>
+        <div class="drop">
+          <h3 class="bruh">
+            <FontAwesomeIcon icon="fa-bars" />
+          </h3>
+          <div class="baixo">
+            <RouterLink class="lado" to="/">Home</RouterLink>
+            <RouterLink class="lado" to="/about">Categorias</RouterLink>
+            <RouterLink class="lado" to="/about">Histórico</RouterLink>
+            <RouterLink class="lado" to="/about">Contato</RouterLink>
+            <RouterLink class="lado" to="/login">Entrar</RouterLink>
+            <RouterLink class="lado" to="/cadastro">Criar Conta</RouterLink>
+          </div>
         </div>
       </div>
     </header>
@@ -49,6 +58,10 @@ body {
 .lado {
   margin: 0 1rem;
   transition: 0.15s;
+}
+
+.bruh {
+  display: none;
 }
 
 .pesquisaInput:focus {
@@ -148,14 +161,32 @@ button.enviar:hover {
     align-items: center;
   }
 
-  .baixo {
+  .drop:hover .baixo {
+    display: flex;
     flex-direction: column;
+  }
+
+  .bruh {
+    flex-direction: column;
+    display: block;
+  }
+
+  .baixo {
+    transition: 0.15s;
+    flex-direction: column;
+    display: none;
+    align-items: flex-start;
+  }
+
+  .drop {
+    display: block;
+    transition: 0.15s;
   }
 
   .pesquisa {
     width: 100%;
-    margin-top: 10px;
-    align-self: center;
+    margin: 10px 0 0 12%;
+    justify-content: center;
   }
 
   .carrinho {
