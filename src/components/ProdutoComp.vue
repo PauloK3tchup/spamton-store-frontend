@@ -1,8 +1,5 @@
 <script>
 import { RouterLink } from 'vue-router'
-import { useCounterStore } from "../stores/counter";
-import { mapStores, mapActions, mapState } from "pinia";
-
 export default {
   components: {
     RouterLink
@@ -14,13 +11,6 @@ export default {
     precoPromo: Number,
     promo: Boolean,
     id: Number
-  },
-  computed: {
-    ...mapStores(useCounterStore),
-    ...mapState(useCounterStore, ["prodId", "prodSelec"]),
-  },
-  methods: {
-    ...mapActions(useCounterStore, ["pesquisar"]),
   }
 }
 </script>
