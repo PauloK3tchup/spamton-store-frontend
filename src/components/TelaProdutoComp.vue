@@ -30,7 +30,25 @@ export default {
 <template>
   <div class="caixaProd">
     <div class="fotoProduto">
-      <img :src="produto.foto" alt="Sexo" class="fotoProd" />
+      <!-- <img :src="produto.foto" alt="Sexo" class="fotoProd" /> -->
+      <div class="wrapper">
+        <nav class="lil-nav">
+          <a href="#image-1">
+            <img class="lil-nav__img" :src="produto.foto" alt="Yosemite" />
+          </a>
+          <a href="#image-2">
+            <img class="lil-nav__img" :src="produto.foto" alt="Houses" />
+          </a>
+          <a href="#image-3">
+            <img class="lil-nav__img" :src="produto.foto" alt="Galaxies" />
+          </a>
+        </nav>
+        <div class="gallery">
+          <img class="gallery__img" id="image-1" :src="produto.foto" alt="Yosemite" />
+          <img class="gallery__img" id="image-2" :src="produto.foto" alt="Houses" />
+          <img class="gallery__img" id="image-3" :src="produto.foto" alt="Galaxies" />
+        </div>
+      </div>
     </div>
     <div class="textoProduto">
       <h1 v-if="!produto.promo" class="precoProd">R${{ produto.preco }}</h1>
@@ -42,6 +60,8 @@ export default {
   </div>
 </template>
 <style scoped>
+@import '../assets/slideshow.css';
+
 .caixaProd {
   display: flex;
   justify-content: center;
