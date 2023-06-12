@@ -7,7 +7,7 @@ export default {
   props: {
     nome: String,
     preco: Number,
-    foto: String,
+    fotos: String,
     precoPromo: Number,
     promo: Boolean,
     id: Number
@@ -17,7 +17,7 @@ export default {
 <template>
   <RouterLink to="/produto">
     <div class="caixa">
-      <img :src="foto" alt="Sexo" class="fotoProd" />
+      <img :src="fotos[0]" alt="Sexo" class="fotoProd" />
       <h1 v-if="promo == false" class="precoProd">R${{ preco }}</h1>
       <p v-if="promo == true" class="precoVelho">R${{ preco }}</p>
       <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1>

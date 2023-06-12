@@ -33,20 +33,19 @@ export default {
       <!-- <img :src="produto.foto" alt="Sexo" class="fotoProd" /> -->
       <div class="wrapper">
         <nav class="lil-nav">
-          <a href="#image-1">
-            <img class="lil-nav__img" :src="produto.foto" alt="Yosemite" />
-          </a>
-          <a href="#image-2">
-            <img class="lil-nav__img" :src="produto.foto" alt="Houses" />
-          </a>
-          <a href="#image-3">
-            <img class="lil-nav__img" :src="produto.foto" alt="Galaxies" />
+          <a v-for="foto in produto.fotos" :key="foto" :href="'#' + foto">
+            <img class="lil-nav__img" :src="foto" alt="Yosemite" />
           </a>
         </nav>
         <div class="gallery">
-          <img class="gallery__img" id="image-1" :src="produto.foto" alt="Yosemite" />
-          <img class="gallery__img" id="image-2" :src="produto.foto" alt="Houses" />
-          <img class="gallery__img" id="image-3" :src="produto.foto" alt="Galaxies" />
+          <img
+            v-for="foto in produto.fotos"
+            :key="foto"
+            class="gallery__img"
+            :id="foto"
+            :src="foto"
+            alt="Yosemite"
+          />
         </div>
       </div>
     </div>

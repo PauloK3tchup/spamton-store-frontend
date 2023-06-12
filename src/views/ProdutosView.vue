@@ -27,7 +27,7 @@ export default {
     <div class="wrapper">
       <div class="bloco" v-for="produto in produtos" :key="produto.id">
         <ProdutoComp
-          :foto="produto.foto"
+          :fotos="produto.fotos"
           :nome="produto.nome"
           :preco="produto.preco"
           :precoPromo="produto.precoPromo"
