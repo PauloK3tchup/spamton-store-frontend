@@ -16,8 +16,10 @@ library.add(faShoppingCart, faSearch, faBars)
           <div class="logoPesq">
             <div class="flex-container">
               <div class="nomeLogo">
-                <img src="./assets/SpamtonOverworld.png" alt="Spamton logo" />
-                <h1>Spamton Store</h1>
+                <RouterLink to="/">
+                  <img src="./assets/SpamtonOverworld.png" alt="Spamton logo" />
+                  <h1 style="color: white">Spamton Store</h1>
+                </RouterLink>
               </div>
               <div class="pesquisa">
                 <input class="pesquisaInput" type="text" placeholder="Pesquisa" />
@@ -46,11 +48,30 @@ library.add(faShoppingCart, faSearch, faBars)
         </div>
       </div>
     </header>
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </RouterView>
   </body>
 </template>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: 0.3s ease;
+  transform: scale(0.9);
+}
+
+.fade-enter-active {
+  transform: scale(1);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 body {
   margin: 0;
 }
@@ -120,6 +141,15 @@ header {
 .nomeLogo {
   width: 200px;
   margin: 5px;
+  transition: 0.15s;
+}
+
+.nomeLogo:hover {
+  transform: scale(1.1);
+}
+
+.nomeLogo:active {
+  transform: scale(0.9);
 }
 
 .pesquisa:focus-within {
