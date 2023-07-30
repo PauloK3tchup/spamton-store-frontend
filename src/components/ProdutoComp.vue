@@ -4,24 +4,25 @@ export default {
   components: {
     RouterLink
   },
-  props: {
+  name: 'ProdutoComp'
+}
+/* props: {
     nome: String,
     preco: Number,
     fotos: String,
     precoPromo: Number,
     promo: Boolean,
     id: Number
-  }
-}
+  } */
 </script>
 <template>
   <RouterLink to="/produto">
     <div class="caixa">
-      <img :src="fotos[0]" alt="Sexo" class="fotoProd" />
-      <h1 v-if="promo == false" class="precoProd">R${{ preco }}</h1>
-      <p v-if="promo == true" class="precoVelho">R${{ preco }}</p>
-      <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1>
+      <!-- <img :src="fotos[0]" alt="Sexo" class="fotoProd" /> -->
+      <!-- <p v-if="promo == true" class="precoVelho">R${{ preco }}</p> -->
+      <!-- <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1> -->
       <h3 class="nomeProd">{{ nome }}</h3>
+      <h1 class="precoProd">R${{ preco }}</h1>
     </div>
   </RouterLink>
 </template>

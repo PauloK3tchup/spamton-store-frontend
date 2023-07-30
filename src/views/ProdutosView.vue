@@ -1,16 +1,18 @@
 <script>
-import ProdutoComp from '../components/ProdutoComp.vue'
+/* import ProdutoComp from '../components/ProdutoComp.vue' */
 import testeApi from '../api/teste'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
+import axios from 'axios'
 
 export default {
   components: {
-    ProdutoComp
+    /* ProdutoComp */
   },
   data() {
     return {
-      produtos: testeApi.produtos
+      produtos: testeApi.produtos,
+      ProdutosRecentes: []
     }
   },
   computed: {
@@ -18,23 +20,42 @@ export default {
     ...mapState(useCounterStore, ['prodId', 'prodSelec'])
   },
   methods: {
-    ...mapActions(useCounterStore, ['selecionar'])
+    ...mapActions(useCounterStore, ['selecionar']),
+
+    getProdutosRecentes() {
+      axios
+        .get('/api/v1/produtos-recentes/')
+        .then((response) => {
+          this.ProdutosRecentes = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
+  mounted() {
+    this.getProdutosRecentes()
   }
 }
 </script>
 <template>
   <main>
     <div class="wrapper">
-      <div class="bloco" v-for="produto in produtos" :key="produto.id">
-        <ProdutoComp
-          :fotos="produto.fotos"
+      <div class="bloco" v-for="produto in ProdutosRecentes" v-bind:key="produto.id">
+        <!--  :precoPromo="produto.precoPromo"
+          :promo="produto.promo"
+          Ainda não adicionados -->
+        <figure class="imagemProduto">
+          <img v-bind:src="produto.get_thumbnail" />
+        </figure>
+        <!-- <ProdutoComp
+          :id="produto.id"
           :nome="produto.nome"
           :preco="produto.preco"
-          :precoPromo="produto.precoPromo"
-          :promo="produto.promo"
-          :id="produto.id"
           @click="selecionar(produto.id)"
-        />
+        /> -->
+        <h3 class="nomeProd">{{ produto.nome }}</h3>
+        <h1 class="precoProd">R${{ produto.preco }}</h1>
       </div>
     </div>
   </main>
