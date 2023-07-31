@@ -1,5 +1,5 @@
 <script>
-/* import ProdutoComp from '../components/ProdutoComp.vue' */
+import ProdutoComp from '../components/ProdutoComp.vue'
 import testeApi from '../api/teste'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
@@ -7,7 +7,7 @@ import axios from 'axios'
 
 export default {
   components: {
-    /* ProdutoComp */
+    ProdutoComp
   },
   data() {
     return {
@@ -42,20 +42,17 @@ export default {
   <main>
     <div class="wrapper">
       <div class="bloco" v-for="produto in ProdutosRecentes" v-bind:key="produto.id">
-        <!--  :precoPromo="produto.precoPromo"
-          :promo="produto.promo"
-          Ainda não adicionados -->
-        <figure class="imagemProduto">
-          <img v-bind:src="produto.get_thumbnail" />
-        </figure>
-        <!-- <ProdutoComp
-          :id="produto.id"
+        <ProdutoComp
+          :fotos="produto.get_image"
+          :thumb="produto.get_thumbnail"
           :nome="produto.nome"
           :preco="produto.preco"
-          @click="selecionar(produto.id)"
-        /> -->
-        <h3 class="nomeProd">{{ produto.nome }}</h3>
-        <h1 class="precoProd">R${{ produto.preco }}</h1>
+          :precoPromo="produto.precoPromo"
+          :promo="produto.promo"
+          :id="produto.id"
+          :url="produto.get_absolute_url"
+          @click="selecionar(produto.get_absolute_url)"
+        />
       </div>
     </div>
   </main>

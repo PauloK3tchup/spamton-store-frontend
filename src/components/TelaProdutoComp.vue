@@ -2,6 +2,7 @@
 import testeApi from '../api/teste'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
+import axios from 'axios'
 
 export default {
   data() {
@@ -19,11 +20,15 @@ export default {
   },
   watch: {
     prodSelec() {
-      this.produto = this.produtos.find((produto) => produto.id == this.prodSelec)
+      axios
+        .get('/api/v1/categorias/' + this.prodSelec)
+        .then((response) => {
+          this.produto = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
-  },
-  created() {
-    this.produto = this.produtos.find((produto) => produto.id == this.prodSelec)
   }
 }
 </script>
@@ -55,6 +60,12 @@ export default {
       <h1 v-if="produto.promo" class="precoPromo">R${{ produto.precoPromo }}</h1>
       <h3 class="nomeProd">{{ produto.nome }}</h3>
       <h3>{{ prodSelec }}</h3>
+      <div class="botaoComprar">
+        <h3>Comprar</h3>
+      </div>
+      <div class="botaoCarrinho">
+        <h3>Carrinho</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -67,6 +78,36 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.botaoComprar {
+  margin-right: 4px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  width: 48%;
+  height: 40px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  cursor: pointer;
+}
+
+.botaoCarrinho {
+  margin-left: 4px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  width: 48%;
+  height: 40px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: rgb(243, 227, 8);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 .fotoProd {
