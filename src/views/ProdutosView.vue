@@ -51,7 +51,7 @@ export default {
           :promo="produto.promo"
           :id="produto.id"
           :url="produto.get_absolute_url"
-          @click="selecionar(produto.get_absolute_url)"
+          @click="selecionar(produto.id)"
         />
       </div>
     </div>

@@ -2,8 +2,8 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', () => {
-  const prodId = ref('')
-  const prodSelec = ref('')
+  const prodId = ref(0)
+  const prodSelec = ref(0)
   function selecionar(prodId) {
     prodSelec.value = prodId
   }

@@ -21,7 +21,7 @@ export default {
   watch: {
     prodSelec() {
       axios
-        .get('/api/v1/categorias/' + this.prodSelec)
+        .get('/api/v1/produtos-recentes/' + this.prodSelec)
         .then((response) => {
           this.produto = response.data
         })
