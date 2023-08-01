@@ -8,7 +8,9 @@ export default {
   data() {
     return {
       produtos: testeApi.produtos,
-      produto: {}
+      produto: {},
+      imagens: [],
+      imagensSim: []
     }
   },
   computed: {
@@ -19,38 +21,53 @@ export default {
     ...mapActions(useCounterStore, ['pesquisar'])
   },
   watch: {
-    prodSelec() {
+    prodSelec(novoProd) {
+      localStorage.prod = novoProd
+      for (let i = 0; i < this.imagens.length; i++) {
+        this.imagensSim.push(this.imagens[i])
+      }
+    }
+  },
+  mounted() {
+    if (localStorage.prod) this.prodSelec = localStorage.prod
+    axios
+      .get('/produtos/' + this.prodSelec)
+      .then((response) => {
+        this.produto = response.data
+      })
+      .catch((error) => {
+        console.log(error)
+      }),
       axios
-        .get('/api/v1/produtos-recentes/' + this.prodSelec)
+        .get('/imagens/')
         .then((response) => {
-          this.produto = response.data
+          this.imagens = response.data
         })
         .catch((error) => {
           console.log(error)
         })
-    }
   }
 }
 </script>
 <template>
   <div class="caixaProd">
     <div class="fotoProduto">
-      <!-- <img :src="produto.foto" alt="Sexo" class="fotoProd" /> -->
+      <h3>{{ imagensSim }}</h3>
       <div class="wrapper">
         <nav class="lil-nav">
-          <a v-for="foto in produto.fotos" :key="foto" :href="'#' + foto">
-            <img class="lil-nav__img" :src="foto" alt="Yosemite" />
+          <a v-for="imagem in imagensSim" :key="imagem.id" :href="'#' + imagem.imagem">
+            <img class="lil-nav__img" :src="imagem.imagem" alt="Cu" />
           </a>
         </nav>
         <div class="gallery">
-          <img
-            v-for="foto in produto.fotos"
-            :key="foto"
+          <div
             class="gallery__img"
-            :id="foto"
-            :src="foto"
-            alt="Yosemite"
-          />
+            v-for="imagem in imagensSim"
+            :key="imagem.id"
+            :id="imagem.imagem"
+          >
+            <img :src="imagem.imagem" alt="Cu" />
+          </div>
         </div>
       </div>
     </div>
@@ -60,6 +77,7 @@ export default {
       <h1 v-if="produto.promo" class="precoPromo">R${{ produto.precoPromo }}</h1>
       <h3 class="nomeProd">{{ produto.nome }}</h3>
       <h3>{{ prodSelec }}</h3>
+      <h3>{{}}</h3>
       <div class="botaoComprar">
         <h3>Comprar</h3>
       </div>

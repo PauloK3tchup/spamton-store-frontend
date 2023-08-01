@@ -24,7 +24,7 @@ export default {
 
     getProdutosRecentes() {
       axios
-        .get('/api/v1/produtos-recentes/')
+        .get('/produtos/')
         .then((response) => {
           this.ProdutosRecentes = response.data
         })
@@ -43,8 +43,8 @@ export default {
     <div class="wrapper">
       <div class="bloco" v-for="produto in ProdutosRecentes" v-bind:key="produto.id">
         <ProdutoComp
-          :fotos="produto.get_image"
-          :thumb="produto.get_thumbnail"
+          :fotos="produto.imagem"
+          :thumbnail="produto.thumbnail"
           :nome="produto.nome"
           :preco="produto.preco"
           :precoPromo="produto.precoPromo"

@@ -5,21 +5,26 @@ export default {
     RouterLink
   },
   name: 'ProdutoComp',
+  data() {
+    return {
+      thumb: '',
+      imagens: []
+    }
+  },
   props: {
     nome: String,
     preco: Number,
-    fotos: Array,
     precoPromo: Number,
     promo: Boolean,
     id: Number,
-    thumb: String
+    thumbnail: String
   }
 }
 </script>
 <template>
   <RouterLink to="/produto">
     <div class="caixa">
-      <img :src="thumb" alt="Sexo" class="fotoProd" />
+      <img :src="thumbnail" alt="Sexo" class="fotoProd" />
       <p v-if="promo == true" class="precoVelho">R${{ preco }}</p>
       <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1>
       <h3 class="nomeProd">{{ nome }}</h3>
