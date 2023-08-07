@@ -20,16 +20,7 @@ export default {
   methods: {
     ...mapActions(useCounterStore, ['pesquisar'])
   },
-  watch: {
-    prodSelec(novoProd) {
-      localStorage.prod = novoProd
-      for (let i = 0; i < this.imagens.length; i++) {
-        this.imagensSim.push(this.imagens[i])
-      }
-    }
-  },
   mounted() {
-    if (localStorage.prod) this.prodSelec = localStorage.prod
     axios
       .get('/produtos/' + this.prodSelec)
       .then((response) => {
@@ -42,6 +33,7 @@ export default {
         .get('/imagens/')
         .then((response) => {
           this.imagens = response.data
+          this.imagensSim = this.imagens.filter((imagem) => imagem.produto == this.prodSelec)
         })
         .catch((error) => {
           console.log(error)
@@ -52,7 +44,6 @@ export default {
 <template>
   <div class="caixaProd">
     <div class="fotoProduto">
-      <h3>{{ imagensSim }}</h3>
       <div class="wrapper">
         <nav class="lil-nav">
           <a v-for="imagem in imagensSim" :key="imagem.id" :href="'#' + imagem.imagem">

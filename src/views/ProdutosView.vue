@@ -17,10 +17,24 @@ export default {
   },
   computed: {
     ...mapStores(useCounterStore),
-    ...mapState(useCounterStore, ['prodId', 'prodSelec'])
+    ...mapState(useCounterStore, ['prodId', 'prodSelec', 'pesquisa'])
+  },
+  watch: {
+    pesquisa() {
+      axios
+        .get('/produtos/')
+        .then((response) => {
+          this.ProdutosRecentes = response.data.filter((produto) => {
+            return produto.nome.toLowerCase().includes(this.pesquisa.toLowerCase())
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   },
   methods: {
-    ...mapActions(useCounterStore, ['selecionar']),
+    ...mapActions(useCounterStore, ['selecionar', 'pesquisar']),
 
     getProdutosRecentes() {
       axios
