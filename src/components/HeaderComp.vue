@@ -41,6 +41,7 @@ export default {
               v-model="pesquisaValue"
               type="text"
               placeholder="Pesquisa"
+              @keydown.enter="pesquisar(pesquisaValue)"
             />
             <button @click="pesquisar(pesquisaValue)" class="enviar">
               <FontAwesomeIcon icon="fa-search" />
