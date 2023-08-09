@@ -28,7 +28,7 @@ export default {
       <p v-if="promo == true" class="precoVelho">R${{ preco }}</p>
       <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1>
       <h3 class="nomeProd">{{ nome }}</h3>
-      <h1 class="precoProd">R${{ preco }}</h1>
+      <h1 v-if="promo == false" class="precoProd">R${{ preco }}</h1>
     </div>
   </RouterLink>
 </template>

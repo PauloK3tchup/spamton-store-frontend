@@ -47,7 +47,7 @@ export default {
       <div class="wrapper">
         <nav class="lil-nav">
           <a v-for="imagem in imagensSim" :key="imagem.id" :href="'#' + imagem.imagem">
-            <img class="lil-nav__img" :src="imagem.imagem" alt="Cu" />
+            <img class="lil-nav__img" :src="imagem.imagem" :alt="'Foto' + imagem.id" />
           </a>
         </nav>
         <div class="gallery">
@@ -57,7 +57,7 @@ export default {
             :key="imagem.id"
             :id="imagem.imagem"
           >
-            <img :src="imagem.imagem" alt="Cu" />
+            <img :src="imagem.imagem" :alt="'Foto' + imagem.id" />
           </div>
         </div>
       </div>
@@ -66,6 +66,7 @@ export default {
       <h1 v-if="!produto.promo" class="precoProd">R${{ produto.preco }}</h1>
       <p v-if="produto.promo" class="precoAntigo">R${{ produto.preco }}</p>
       <h1 v-if="produto.promo" class="precoPromo">R${{ produto.precoPromo }}</h1>
+      <p>{{ produto.descricao }}</p>
       <h3 class="nomeProd">{{ produto.nome }}</h3>
       <h3>{{ prodSelec }}</h3>
       <h3>{{}}</h3>

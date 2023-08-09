@@ -4,6 +4,8 @@ import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
 import CadastroView from '../views/CadastroView.vue'
 import TelaProdutoComp from '../components/TelaProdutoComp.vue'
+import TabelaView from '../views/TabelaView.vue'
+import CadastrarProdutosView from '../views/CadastrarProdutosView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,26 @@ const router = createRouter({
       path: '/produto',
       name: 'produto',
       component: TelaProdutoComp
+    },
+    {
+      path: '/tabela',
+      name: 'tabela',
+      component: TabelaView
+    },
+    {
+      path: '/cadastrar',
+      name: 'cadastrar',
+      component: CadastrarProdutosView
+    },
+    {
+      path: '/registro',
+      name: 'registro',
+      component: AboutView
+    },
+    {
+      path: '/conta',
+      name: 'conta',
+      component: AboutView
     }
   ]
 })

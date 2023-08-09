@@ -1,0 +1,145 @@
+<script>
+import testeApi from '../api/teste'
+import { useCounterStore } from '../stores/counter'
+import { mapStores, mapActions, mapState } from 'pinia'
+import axios from 'axios'
+
+export default {
+  data() {
+    return {
+      produtos: testeApi.produtos,
+      ProdutosRecentes: []
+    }
+  },
+  computed: {
+    ...mapStores(useCounterStore),
+    ...mapState(useCounterStore, ['prodId', 'prodSelec', 'pesquisa'])
+  },
+  watch: {
+    pesquisa() {
+      axios
+        .get('/produtos/')
+        .then((response) => {
+          this.ProdutosRecentes = response.data.filter((produto) => {
+            return produto.nome.toLowerCase().includes(this.pesquisa.toLowerCase())
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
+  methods: {
+    ...mapActions(useCounterStore, ['selecionar', 'pesquisar']),
+
+    getProdutosRecentes() {
+      axios
+        .get('/produtos/')
+        .then((response) => {
+          this.ProdutosRecentes = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+  },
+  mounted() {
+    this.getProdutosRecentes()
+  }
+}
+</script>
+<template>
+  <main>
+    <div class="wrapper">
+      <!-- <div class="bloco" v-for="produto in ProdutosRecentes" v-bind:key="produto.id">
+        <ProdutoComp
+          :fotos="produto.imagem"
+          :thumbnail="produto.thumbnail"
+          :nome="produto.nome"
+          :preco="produto.preco"
+          :precoPromo="produto.precoPromo"
+          :promo="produto.promo"
+          :id="produto.id"
+          :url="produto.get_absolute_url"
+          @click="selecionar(produto.id)"
+        />
+      </div> -->
+      <div class="tabela">
+        <table>
+          <tr>
+            <th class="cabeça">Id</th>
+            <th class="cabeça">Nome</th>
+            <th class="cabeça">Thumbnail</th>
+            <th class="cabeça">Categoria</th>
+            <th class="cabeça">Preço</th>
+            <th class="cabeça">Em Promoção</th>
+            <th class="cabeça">Preço Promoção</th>
+            <th class="cabeça">Fabricante</th>
+            <th class="cabeça">Ação</th>
+          </tr>
+          <tr v-for="produto in ProdutosRecentes" :key="produto.id">
+            <td>{{ produto.id }}</td>
+            <td>{{ produto.nome }}</td>
+            <td>
+              <a :href="produto.thumbnail">{{ produto.thumbnail }}</a>
+            </td>
+            <td>{{ produto.categoria.nome }}</td>
+            <td>{{ produto.preco }}</td>
+            <td>{{ produto.promo }}</td>
+            <td>{{ produto.precoPromo }}</td>
+            <td v-if="produto.fabricante != null">{{ produto.fabricante.nome }}</td>
+            <td v-else>Produto sem fabricante</td>
+            <td>
+              <button class="btn-excluir" @click="excluir(livro)">
+                <font-awesome-icon icon="fa-trash" /> <span>Excluir</span>
+              </button>
+              <button class="btn-editar" @click="editar(livro)">
+                <font-awesome-icon icon="fa-pencil" /> <span>Editar</span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </main>
+</template>
+<style scoped>
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tabela {
+  width: 100%;
+  margin: 20px;
+}
+
+.bloco {
+  display: inline-block;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border: 1px solid #dddddd;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.cabeça {
+  font-weight: bolder;
+  background-color: black;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #292301;
+  border: 1px solid #dddddd;
+}
+</style>
