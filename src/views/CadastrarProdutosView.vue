@@ -8,10 +8,33 @@ export default {
     return {
       checked: false,
       produto: {},
-      produtos: []
+      produtos: [],
+      categorias: [],
+      fabricantes: [],
+      thumbnail: null
     }
   },
   methods: {
+    async buscarCategoria() {
+      axios
+        .get('/categorias/')
+        .then((response) => {
+          this.categorias = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    async buscarFabricante() {
+      axios
+        .get('/fabricantes/')
+        .then((response) => {
+          this.fabricantes = response.data
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
     async salvar() {
       if (this.produto.id) {
         await produtosApi.atualizarProduto(this.produto)
@@ -39,15 +62,19 @@ export default {
         .catch(() => {
           console.log('FAILED')
         })
-    },
-    watch: {
-      checked() {
-        this.produto.promo = this.checked
-      }
-    },
-    uploadFile() {
-      this.Images = this.$refs.file.files[0]
     }
+  },
+  watch: {
+    checked() {
+      this.produto.promo = this.checked
+    }
+  },
+  uploadFile() {
+    this.Images = this.$refs.file.files[0]
+  },
+  mounted() {
+    this.buscarCategoria()
+    this.buscarFabricante()
   }
 }
 </script>
@@ -92,13 +119,13 @@ export default {
       required
     />
     <select v-model="produto.categoria" required class="inputEnviar">
-      <option selected value="1">Categoria</option>
+      <option disabled selected value="1">Categoria</option>
       <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
         {{ categoria.nome }}
       </option>
     </select>
     <select v-model="produto.fabricante" required class="inputEnviar">
-      <option selected value="1">Fabricante</option>
+      <option disabled selected value="1">Fabricante</option>
       <option v-for="fabricante in fabricantes" :key="fabricante.id" :value="fabricante.id">
         {{ fabricante.nome }}
       </option>

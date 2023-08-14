@@ -2,7 +2,9 @@
 import testeApi from '../api/teste'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
+import ProdutosApi from '../api/produtos'
 import axios from 'axios'
+const produtosApi = new ProdutosApi()
 
 export default {
   data() {
@@ -41,6 +43,10 @@ export default {
         .catch((error) => {
           console.log(error)
         })
+    },
+    async excluir(produto) {
+      await produtosApi.excluirProduto(produto.id)
+      this.ProdutosRecentes = await produtosApi.buscarProdutos()
     }
   },
   mounted() {
@@ -90,10 +96,10 @@ export default {
             <td v-if="produto.fabricante != null">{{ produto.fabricante.nome }}</td>
             <td v-else>Produto sem fabricante</td>
             <td>
-              <button class="btn-excluir" @click="excluir(livro)">
+              <button class="btn-excluir" @click="excluir(produto)">
                 <font-awesome-icon icon="fa-trash" /> <span>Excluir</span>
               </button>
-              <button class="btn-editar" @click="editar(livro)">
+              <button class="btn-editar" @click="editar(produto)">
                 <font-awesome-icon icon="fa-pencil" /> <span>Editar</span>
               </button>
             </td>
