@@ -30,7 +30,7 @@ export default {
         console.log(error)
       }),
       axios
-        .get('/imagens/')
+        .get('/api/media/images/')
         .then((response) => {
           this.imagens = response.data
           this.imagensSim = this.imagens.filter((imagem) => imagem.produto == this.prodSelec)
