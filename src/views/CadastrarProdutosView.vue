@@ -14,7 +14,8 @@ export default {
       fabricantes: [],
       thumbnail: ref({
         thumb: null
-      })
+      }),
+      fts: []
     }
   },
   methods: {
@@ -39,7 +40,6 @@ export default {
         })
     },
     async salvar() {
-      this.produto.thumbnail = this.thumbnail.thumb
       if (this.produto.id) {
         await produtosApi.atualizarProduto(this.produto)
       } else {
@@ -59,8 +59,21 @@ export default {
       const target = e.target
       if (target && target.files) {
         const file = target.files[0]
+        this.fts = target
         this.thumbnail.thumb = URL.createObjectURL(file)
       }
+    },
+    onFileChange(e) {
+      const formData = new FormData()
+      formData.append('file', e.target.files[0])
+      axios
+        .post('/api/media/images/', formData)
+        .then(() => {
+          console.log('SUCCESS')
+        })
+        .catch(() => {
+          console.log('FAILED')
+        })
     }
   },
   watch: {
@@ -126,7 +139,7 @@ export default {
         {{ fabricante.nome }}
       </option>
     </select>
-    <input type="file" id="avatarField" @change="handleFileUpload($event)" />
+    <input type="file" id="thumbnail" @change="handleFileUpload($event), onFileChange($event)" />
     <button class="btn" @click="salvar">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
