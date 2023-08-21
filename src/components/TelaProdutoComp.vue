@@ -25,19 +25,11 @@ export default {
       .get('/produtos/' + this.prodSelec)
       .then((response) => {
         this.produto = response.data
+        this.imagensSim = this.produto.imagens
       })
       .catch((error) => {
         console.log(error)
-      }),
-      axios
-        .get('/imagens/')
-        .then((response) => {
-          this.imagens = response.data
-          this.imagensSim = this.imagens.filter((imagem) => imagem.produto == this.prodSelec)
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      })
   }
 }
 </script>
@@ -46,18 +38,13 @@ export default {
     <div class="fotoProduto">
       <div class="wrapper">
         <nav class="lil-nav">
-          <a v-for="imagem in imagensSim" :key="imagem.id" :href="'#' + imagem.imagem">
-            <img class="lil-nav__img" :src="imagem.imagem" :alt="'Foto' + imagem.id" />
+          <a v-for="imagem in imagensSim" :key="imagem.id" :href="'#' + imagem.file">
+            <img class="lil-nav__img" :src="imagem.file" :alt="'Foto' + imagem.id" />
           </a>
         </nav>
         <div class="gallery">
-          <div
-            class="gallery__img"
-            v-for="imagem in imagensSim"
-            :key="imagem.id"
-            :id="imagem.imagem"
-          >
-            <img :src="imagem.imagem" :alt="'Foto' + imagem.id" />
+          <div class="gallery__img" v-for="imagem in imagensSim" :key="imagem.id" :id="imagem.file">
+            <img :src="imagem.file" :alt="'Foto' + imagem.id" />
           </div>
         </div>
       </div>
