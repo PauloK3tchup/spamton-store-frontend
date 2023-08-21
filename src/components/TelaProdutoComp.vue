@@ -29,7 +29,20 @@ export default {
       })
       .catch((error) => {
         console.log(error)
+<<<<<<< HEAD
       })
+=======
+      }),
+      axios
+        .get('/api/media/images/')
+        .then((response) => {
+          this.imagens = response.data
+          this.imagensSim = this.imagens.filter((imagem) => imagem.produto == this.prodSelec)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+>>>>>>> refs/remotes/origin/master
   }
 }
 </script>

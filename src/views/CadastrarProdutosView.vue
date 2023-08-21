@@ -1,6 +1,7 @@
 <script>
 import ProdutosApi from '../api/produtos'
 import axios from 'axios'
+import { ref } from 'vue'
 const produtosApi = new ProdutosApi()
 
 export default {
@@ -11,7 +12,10 @@ export default {
       produtos: [],
       categorias: [],
       fabricantes: [],
-      thumbnail: null
+      thumbnail: ref({
+        thumb: null
+      }),
+      fts: []
     }
   },
   methods: {
@@ -51,11 +55,19 @@ export default {
       await produtosApi.excluirProduto(produto.id)
       this.produtos = await produtosApi.buscarProdutos()
     },
+    handleFileUpload(e) {
+      const target = e.target
+      if (target && target.files) {
+        const file = target.files[0]
+        this.fts = target
+        this.thumbnail.thumb = URL.createObjectURL(file)
+      }
+    },
     onFileChange(e) {
       const formData = new FormData()
       formData.append('file', e.target.files[0])
       axios
-        .post('/media/thumbnails/', formData)
+        .post('/api/media/images/', formData)
         .then(() => {
           console.log('SUCCESS')
         })
@@ -68,9 +80,6 @@ export default {
     checked() {
       this.produto.promo = this.checked
     }
-  },
-  uploadFile() {
-    this.Images = this.$refs.file.files[0]
   },
   mounted() {
     this.buscarCategoria()
@@ -130,9 +139,10 @@ export default {
         {{ fabricante.nome }}
       </option>
     </select>
-    <input type="file" v-on:change="produto.thumbnail" accept="image" />
+    <input type="file" id="thumbnail" @change="handleFileUpload($event), onFileChange($event)" />
     <button class="btn" @click="salvar">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
+    <img :src="thumbnail.thumb" />
   </div>
 </template>
