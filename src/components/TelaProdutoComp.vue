@@ -90,6 +90,17 @@ export default {
   background-color: rgb(255, 0, 0);
   color: white;
   cursor: pointer;
+  transition: 0.15s;
+}
+
+.botaoComprar:hover,
+.botaoCarrinho:hover {
+  transform: scale(1.1);
+}
+
+.botaoComprar:active,
+.botaoCarrinho:active {
+  transform: scale(0.9);
 }
 
 .botaoCarrinho {
@@ -105,6 +116,7 @@ export default {
   background-color: rgb(243, 227, 8);
   color: rgb(0, 0, 0);
   cursor: pointer;
+  transition: 0.15s;
 }
 
 .fotoProd {
