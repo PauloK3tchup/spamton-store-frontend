@@ -4,7 +4,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import HeaderComp from './components/HeaderGestor.vue'
+import HeaderComp from './components/HeaderComp.vue'
 
 library.add(faShoppingCart, faSearch, faBars)
 </script>

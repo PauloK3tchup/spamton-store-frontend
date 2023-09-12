@@ -57,19 +57,6 @@ export default {
 <template>
   <main>
     <div class="wrapper">
-      <!-- <div class="bloco" v-for="produto in ProdutosRecentes" v-bind:key="produto.id">
-        <ProdutoComp
-          :fotos="produto.imagem"
-          :thumbnail="produto.thumbnail"
-          :nome="produto.nome"
-          :preco="produto.preco"
-          :precoPromo="produto.precoPromo"
-          :promo="produto.promo"
-          :id="produto.id"
-          :url="produto.get_absolute_url"
-          @click="selecionar(produto.id)"
-        />
-      </div> -->
       <div class="tabela">
         <table>
           <tr>
@@ -89,11 +76,11 @@ export default {
             <td>
               <a :href="produto.thumbnail">{{ produto.thumbnail }}</a>
             </td>
-            <td>{{ produto.categoria.nome }}</td>
+            <td>{{ produto.categoria }}</td>
             <td>{{ produto.preco }}</td>
             <td>{{ produto.promo }}</td>
             <td>{{ produto.precoPromo }}</td>
-            <td v-if="produto.fabricante != null">{{ produto.fabricante.nome }}</td>
+            <td v-if="produto.fabricante != null">{{ produto.fabricante }}</td>
             <td v-else>Produto sem fabricante</td>
             <td>
               <button class="btn-excluir" @click="excluir(produto)">

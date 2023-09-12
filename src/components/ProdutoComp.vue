@@ -24,7 +24,7 @@ export default {
 <template>
   <RouterLink to="/produto">
     <div class="caixa">
-      <img :src="thumbnail" alt="Sexo" class="fotoProd" />
+      <img :src="thumbnail" alt="Thumb" class="fotoProd" />
       <p v-if="promo == true" class="precoVelho">R${{ preco }}</p>
       <h1 v-if="promo == true" class="precoPromo">R${{ precoPromo }} OFERTA!</h1>
       <h3 class="nomeProd">{{ nome }}</h3>
