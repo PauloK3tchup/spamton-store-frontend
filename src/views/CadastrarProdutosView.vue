@@ -16,6 +16,7 @@ export default {
       fabricantes: ref([]),
       coverUrl: ref(''),
       file: ref(null),
+      files: ref(null),
       produto: reactive({
         nome: '',
         descricao: '',
@@ -44,9 +45,15 @@ export default {
       this.coverUrl = URL.createObjectURL(this.file)
     },
 
+    onFileChange2(e) {
+      this.files = e.target.files
+    },
+
     async save() {
       const image = await imageService.uploadImage(this.file)
+      //const images = await imageService.uploadImage(this.files[0])
       this.produto.thumb_attachment_key = image.attachment_key
+      //this.produto.imagens_attachment_key = Array(images.id)
       await produtosApi.adicionarProduto(this.produto)
       Object.assign(this.produto, {
         id: '',
@@ -59,6 +66,7 @@ export default {
         promo: false,
         precoPromo: '',
         thumb_attachment_key: ''
+        //  imagens_attachment_key: []
       })
       this.produto = {}
       this.coverUrl = ''
@@ -131,13 +139,36 @@ export default {
     </select>
 
     <div>
-      <input type="file" @change="onFileChange" />
+      <p>Thumbnail Do Produto</p>
+      <input id="thumb" type="file" @change="onFileChange" />
       <div>
-        <img v-if="coverUrl" :src="coverUrl" />
+        <img class="thumb" v-if="coverUrl" :src="coverUrl" />
       </div>
     </div>
+    <!-- <div>
+      <label for="imagens">Imagens do Produto</label>
+      <input multiple id="imagens" type="file" @change="onFileChange2" />
+    </div> -->
+
     <button class="btn" @click="save">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
   </div>
 </template>
+<style scoped>
+input {
+  margin: 5px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+.thumb {
+  width: 100px;
+  height: 100px;
+}
+</style>
