@@ -1,79 +1,67 @@
 <script>
 import ProdutosApi from '../api/produtos'
-import axios from 'axios'
-import { ref } from 'vue'
+import CategoriasApi from '../api/categorias'
+import FabricantesApi from '../api/fabricantes'
+import { ref, reactive } from 'vue'
+import imageService from '@/services/images.js'
 const produtosApi = new ProdutosApi()
+const categoriasApi = new CategoriasApi()
+const fabricantesApi = new FabricantesApi()
 
 export default {
   data() {
     return {
       checked: false,
-      produto: {},
-      produtos: [],
-      categorias: [],
-      fabricantes: [],
-      thumbnail: ref({
-        thumb: null
-      }),
-      fts: []
+      categorias: ref([]),
+      fabricantes: ref([]),
+      coverUrl: ref(''),
+      file: ref(null),
+      produto: reactive({
+        nome: '',
+        descricao: '',
+        preco: '',
+        quantidade: '',
+        categoria: '',
+        fabricante: '',
+        promo: false,
+        precoPromo: ''
+      })
     }
   },
   methods: {
     async buscarCategoria() {
-      axios
-        .get('/categorias/')
-        .then((response) => {
-          this.categorias = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      const data = await categoriasApi.buscarCategoria()
+      this.categorias = data
     },
+
     async buscarFabricante() {
-      axios
-        .get('/fabricantes/')
-        .then((response) => {
-          this.fabricantes = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+      const data = await fabricantesApi.buscarFabricante()
+      this.fabricantes = data
     },
-    async salvar() {
-      if (this.produto.id) {
-        await produtosApi.atualizarProduto(this.produto)
-      } else {
-        await produtosApi.adicionarProduto(this.produto)
-      }
-      this.produto = {}
-      this.produtos = await produtosApi.buscarProdutos()
-    },
-    editar(produto) {
-      Object.assign(this.produto, produto)
-    },
-    async excluir(produto) {
-      await produtosApi.excluirProduto(produto.id)
-      this.produtos = await produtosApi.buscarProdutos()
-    },
-    handleFileUpload(e) {
-      const target = e.target
-      if (target && target.files) {
-        const file = target.files[0]
-        this.fts = target
-        this.thumbnail.thumb = URL.createObjectURL(file)
-      }
-    },
+
     onFileChange(e) {
-      const formData = new FormData()
-      formData.append('file', e.target.files[0])
-      axios
-        .post('/api/media/images/', formData)
-        .then(() => {
-          console.log('SUCCESS')
-        })
-        .catch(() => {
-          console.log('FAILED')
-        })
+      this.file = e.target.files[0]
+      this.coverUrl = URL.createObjectURL(this.file)
+    },
+
+    async save() {
+      const image = await imageService.uploadImage(this.file)
+      this.produto.thumb_attachment_key = image.attachment_key
+      await produtosApi.adicionarProduto(this.produto)
+      Object.assign(this.produto, {
+        id: '',
+        nome: '',
+        descricao: '',
+        preco: '',
+        quantidade: '',
+        categoria: '',
+        fabricante: '',
+        promo: false,
+        precoPromo: '',
+        thumb_attachment_key: ''
+      })
+      this.produto = {}
+      this.coverUrl = ''
     }
   },
   watch: {
@@ -139,10 +127,14 @@ export default {
         {{ fabricante.nome }}
       </option>
     </select>
-    <input type="file" id="thumbnail" @change="handleFileUpload($event), onFileChange($event)" />
-    <button class="btn" @click="salvar">
+    <div>
+      <input type="file" @change="onFileChange" />
+      <div>
+        <img v-if="coverUrl" :src="coverUrl" />
+      </div>
+    </div>
+    <button class="btn" @click="save">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
-    <img :src="thumbnail.thumb" />
   </div>
 </template>

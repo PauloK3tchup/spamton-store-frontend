@@ -16,8 +16,4 @@ export default class ProdutosApi {
     const { data } = await axios.delete(`/produtos/${id}/`)
     return data
   }
-  async buscarFabricante() {
-    const { data } = await axios.get('/fabricantes/')
-    return data
-  }
 }
