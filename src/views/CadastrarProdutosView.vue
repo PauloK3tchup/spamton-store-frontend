@@ -115,18 +115,21 @@ export default {
       placeholder="Preço Promoção do Produto"
       required
     />
-    <select v-model="produto.categoria" required class="inputEnviar">
-      <option disabled selected value="0">Categoria</option>
+
+    <select v-model="produto.categoria">
+      <option disabled value="">Selecione uma Categoria</option>
       <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
         {{ categoria.nome }}
       </option>
     </select>
-    <select v-model="produto.fabricante" required class="inputEnviar">
-      <option disabled selected value="0">Fabricante</option>
+
+    <select v-model="produto.fabricante">
+      <option disabled value="">Selecione um Fabricante</option>
       <option v-for="fabricante in fabricantes" :key="fabricante.id" :value="fabricante.id">
         {{ fabricante.nome }}
       </option>
     </select>
+
     <div>
       <input type="file" @change="onFileChange" />
       <div>
