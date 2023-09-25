@@ -87,51 +87,53 @@ export default {
   <div class="form">
     <input
       v-model="produto.nome"
-      class="inputEnviar"
+      class="inputTexto"
       type="text"
       placeholder="Nome do Produto"
       required
     />
     <input
       v-model="produto.descricao"
-      class="inputEnviar"
+      class="inputTexto"
       type="text"
       placeholder="Descrição do Produto"
       required
     />
     <input
       v-model="produto.quantidade"
-      class="inputEnviar"
+      class="inputTexto"
       type="number"
       placeholder="Quantidade do Produto"
       required
     />
     <input
       v-model="produto.preco"
-      class="inputEnviar"
+      class="inputTexto"
       type="number"
       placeholder="Preço do Produto"
       required
     />
-    <input v-model="checked" type="checkbox" required id="promo" />
-    <label for="promo">Promoção</label>
-    <input
-      v-model="produto.precoPromo"
-      v-if="checked"
-      class="inputEnviar"
-      type="number"
-      placeholder="Preço Promoção do Produto"
-      required
-    />
+    <div class="promo">
+      <input class="checkPromo" v-model="checked" type="checkbox" required id="promo" />
+      <span> <label class="labelPromo" v-if="!checked" for="promo">Promoção</label></span>
+      <input
+        v-model="produto.precoPromo"
+        v-if="checked"
+        class="inputPromo"
+        type="number"
+        placeholder="Preço Promoção do Produto"
+        required
+      />
+    </div>
 
-    <select v-model="produto.categoria">
+    <select class="inputSelect" v-model="produto.categoria">
       <option disabled value="">Selecione uma Categoria</option>
       <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
         {{ categoria.nome }}
       </option>
     </select>
 
-    <select v-model="produto.fabricante">
+    <select class="inputSelect" v-model="produto.fabricante">
       <option disabled value="">Selecione um Fabricante</option>
       <option v-for="fabricante in fabricantes" :key="fabricante.id" :value="fabricante.id">
         {{ fabricante.nome }}
@@ -150,7 +152,7 @@ export default {
       <input multiple id="imagens" type="file" @change="onFileChange2" />
     </div> -->
 
-    <button class="btn" @click="save">
+    <button class="btnSalvar" @click="save">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
   </div>
@@ -158,6 +160,55 @@ export default {
 <style scoped>
 input {
   margin: 5px;
+}
+
+.checkPromo {
+  width: 20px;
+  height: 20px;
+  margin: 5px 200px 5px 5px;
+  float: left;
+}
+
+.labelPromo {
+  margin: 0 400px 0 -195px;
+}
+
+.checkPromo:checked {
+  margin: -1px 5px 6px 13px;
+  width: 20px;
+  height: 20px;
+}
+
+.promo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.inputPromo {
+  width: 460px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+}
+
+.inputSelect {
+  width: 500px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin: 5px;
+}
+
+.inputTexto {
+  width: 500px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 5px;
 }
 
 .form {

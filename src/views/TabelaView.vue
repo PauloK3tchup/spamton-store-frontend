@@ -76,11 +76,12 @@ export default {
             <td>
               <a :href="produto.thumbnail">{{ produto.thumbnail }}</a>
             </td>
-            <td>{{ produto.categoria }}</td>
+            <td v-if="produto.categoria != null">{{ produto.categoria.nome }}</td>
+            <td v-else>Produto sem Categoria</td>
             <td>{{ produto.preco }}</td>
             <td>{{ produto.promo }}</td>
             <td>{{ produto.precoPromo }}</td>
-            <td v-if="produto.fabricante != null">{{ produto.fabricante }}</td>
+            <td v-if="produto.fabricante != null">{{ produto.fabricante.nome }}</td>
             <td v-else>Produto sem fabricante</td>
             <td>
               <button class="btn-excluir" @click="excluir(produto)">
