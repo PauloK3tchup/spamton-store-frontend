@@ -11,6 +11,7 @@ const fabricantesApi = new FabricantesApi()
 export default {
   data() {
     return {
+      cadastro: 1,
       checked: false,
       categorias: ref([]),
       fabricantes: ref([]),
@@ -26,6 +27,10 @@ export default {
         fabricante: '',
         promo: false,
         precoPromo: ''
+      }),
+      categoria: reactive({
+        nome: '',
+        descricao: ''
       })
     }
   },
@@ -70,6 +75,11 @@ export default {
       })
       this.produto = {}
       this.coverUrl = ''
+    },
+
+    async saveCat() {
+      await categoriasApi.adicionarCategoria(this.categoria)
+      this.categoria = {}
     }
   },
   watch: {
@@ -85,6 +95,14 @@ export default {
 </script>
 <template>
   <div class="form">
+    <select class="inputSelect" name="cadastrar" id="optCadastro" v-model="cadastro">
+      <option :value="1">Cadastrar Produto</option>
+      <option :value="2">Cadastrar Categoria</option>
+      <option :value="3">Cadastrar Fabricante</option>
+    </select>
+  </div>
+  <div v-if="cadastro == 1" class="form">
+    <h1>Cadastrar Produto:</h1>
     <input
       v-model="produto.nome"
       class="inputTexto"
@@ -153,6 +171,26 @@ export default {
     </div> -->
 
     <button class="btnSalvar" @click="save">
+      <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
+    </button>
+  </div>
+  <div v-if="cadastro == 2" class="form">
+    <h1>Cadastrar Categoria:</h1>
+    <input
+      v-model="categoria.nome"
+      class="inputTexto"
+      type="text"
+      placeholder="Nome do Produto"
+      required
+    />
+    <input
+      v-model="categoria.descricao"
+      class="inputTexto"
+      type="text"
+      placeholder="Descrição do Produto"
+      required
+    />
+    <button class="btnSalvar" @click="saveCat">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
   </div>
