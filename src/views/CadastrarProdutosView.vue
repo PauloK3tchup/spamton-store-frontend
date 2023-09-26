@@ -148,9 +148,14 @@ export default {
 </script>
 <template>
   <div class="form">
-    <select class="inputSelect" name="cadastrar" id="optCadastro" v-model="cadastro">
+    <select
+      v-if="cadastro != 2"
+      class="inputSelect"
+      name="cadastrar"
+      id="optCadastro"
+      v-model="cadastro"
+    >
       <option :value="1">Cadastrar Produto</option>
-      <option :value="2">Editar Produto</option>
       <option :value="3">Cadastrar Categoria</option>
       <option :value="4">Cadastrar Fabricante</option>
     </select>

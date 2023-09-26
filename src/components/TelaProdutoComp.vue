@@ -55,8 +55,6 @@ export default {
       <h1 v-if="produto.promo" class="precoPromo">R${{ produto.precoPromo }}</h1>
       <p>{{ produto.descricao }}</p>
       <h3 class="nomeProd">{{ produto.nome }}</h3>
-      <h3>{{ prodSelec }}</h3>
-      <h3>{{}}</h3>
       <div class="botaoComprar">
         <h3>Comprar</h3>
       </div>
