@@ -30,7 +30,7 @@ export default {
       <div class="logoPesq">
         <div class="flex-container">
           <div class="nomeLogo">
-            <RouterLink to="/tabela">
+            <RouterLink to="/">
               <img src="../assets/SpamtonOverworld.png" alt="Spamton logo" />
               <h1 style="color: white">Spamton Store</h1>
             </RouterLink>
