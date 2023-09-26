@@ -74,7 +74,7 @@ export default {
             <td>{{ produto.id }}</td>
             <td>{{ produto.nome }}</td>
             <td>
-              <a :href="produto.thumbnail">{{ produto.thumbnail }}</a>
+              <a :href="produto.thumbnail.file">{{ produto.thumbnail.file }}</a>
             </td>
             <td v-if="produto.categoria">{{ produto.categoria.nome }}</td>
             <td v-else>Produto sem Categoria</td>
@@ -87,7 +87,10 @@ export default {
               <button class="btn-excluir" @click="excluir(produto)">
                 <font-awesome-icon icon="fa-trash" /> <span>Excluir</span>
               </button>
-              <button class="btn-editar" @click="editar(produto)">
+              <button
+                class="btn-editar"
+                @click="selecionar(produto.id), this.$router.push('/cadastrar')"
+              >
                 <font-awesome-icon icon="fa-pencil" /> <span>Editar</span>
               </button>
             </td>

@@ -1,6 +1,8 @@
 <script>
 import ProdutosApi from '../api/produtos'
 import CategoriasApi from '../api/categorias'
+import { useCounterStore } from '../stores/counter'
+import { mapStores, mapActions, mapState } from 'pinia'
 import FabricantesApi from '../api/fabricantes'
 import { ref, reactive } from 'vue'
 import imageService from '@/services/images.js'
@@ -31,10 +33,22 @@ export default {
       categoria: reactive({
         nome: '',
         descricao: ''
+      }),
+      fabricante: reactive({
+        nome: '',
+        descricao: '',
+        site: '',
+        email: ''
       })
     }
   },
+  computed: {
+    ...mapStores(useCounterStore),
+    ...mapState(useCounterStore, ['prodId', 'prodSelec', 'pesquisa', 'selec'])
+  },
   methods: {
+    ...mapActions(useCounterStore, ['selecionar', 'pesquisar']),
+
     async buscarCategoria() {
       const data = await categoriasApi.buscarCategoria()
       this.categorias = data
@@ -80,6 +94,42 @@ export default {
     async saveCat() {
       await categoriasApi.adicionarCategoria(this.categoria)
       this.categoria = {}
+    },
+
+    async saveFab() {
+      await fabricantesApi.adicionarFabricante(this.fabricante)
+      this.fabricante = {}
+    },
+
+    async editarProduto() {
+      const image = await imageService.uploadImage(this.file)
+      this.produto.thumb_attachment_key = image.attachment_key
+      await produtosApi.atualizarProduto(this.produto)
+      Object.assign(this.produto, {
+        id: '',
+        nome: '',
+        descricao: '',
+        preco: '',
+        quantidade: '',
+        categoria: '',
+        fabricante: '',
+        promo: false,
+        precoPromo: '',
+        thumb_attachment_key: ''
+        //  imagens_attachment_key: []
+      })
+      this.produto = {}
+      this.coverUrl = ''
+    },
+
+    async buscarProduto() {
+      const data = await produtosApi.buscarProduto(this.produto.id)
+      this.produto = data
+    },
+    edit() {
+      this.cadastro = this.selec
+      this.produto.id = this.prodSelec
+      this.buscarProduto()
     }
   },
   watch: {
@@ -90,6 +140,9 @@ export default {
   mounted() {
     this.buscarCategoria()
     this.buscarFabricante()
+    if (this.prodSelec != 0) {
+      this.edit()
+    }
   }
 }
 </script>
@@ -97,8 +150,9 @@ export default {
   <div class="form">
     <select class="inputSelect" name="cadastrar" id="optCadastro" v-model="cadastro">
       <option :value="1">Cadastrar Produto</option>
-      <option :value="2">Cadastrar Categoria</option>
-      <option :value="3">Cadastrar Fabricante</option>
+      <option :value="2">Editar Produto</option>
+      <option :value="3">Cadastrar Categoria</option>
+      <option :value="4">Cadastrar Fabricante</option>
     </select>
   </div>
   <div v-if="cadastro == 1" class="form">
@@ -175,22 +229,138 @@ export default {
     </button>
   </div>
   <div v-if="cadastro == 2" class="form">
-    <h1>Cadastrar Categoria:</h1>
+    <h1>Editar Produto:</h1>
     <input
-      v-model="categoria.nome"
+      v-model="produto.id"
+      class="inputTexto"
+      type="number"
+      placeholder="Id do Produto"
+      required
+      @change="buscarProduto"
+    />
+    <input
+      v-model="produto.nome"
       class="inputTexto"
       type="text"
       placeholder="Nome do Produto"
       required
     />
     <input
-      v-model="categoria.descricao"
+      v-model="produto.descricao"
       class="inputTexto"
       type="text"
       placeholder="Descrição do Produto"
       required
     />
+    <input
+      v-model="produto.quantidade"
+      class="inputTexto"
+      type="number"
+      placeholder="Quantidade do Produto"
+      required
+    />
+    <input
+      v-model="produto.preco"
+      class="inputTexto"
+      type="number"
+      placeholder="Preço do Produto"
+      required
+    />
+    <div class="promo">
+      <input class="checkPromo" v-model="checked" type="checkbox" required id="promo" />
+      <span> <label class="labelPromo" v-if="!checked" for="promo">Promoção</label></span>
+      <input
+        v-model="produto.precoPromo"
+        v-if="checked"
+        class="inputPromo"
+        type="number"
+        placeholder="Preço Promoção do Produto"
+        required
+      />
+    </div>
+
+    <select class="inputSelect" v-model="produto.categoria">
+      <option disabled value="">Selecione uma Categoria</option>
+      <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+        {{ categoria.nome }}
+      </option>
+    </select>
+
+    <select class="inputSelect" v-model="produto.fabricante">
+      <option disabled value="">Selecione um Fabricante</option>
+      <option v-for="fabricante in fabricantes" :key="fabricante.id" :value="fabricante.id">
+        {{ fabricante.nome }}
+      </option>
+    </select>
+
+    <div>
+      <p>Thumbnail Do Produto</p>
+      <input id="thumb" type="file" @change="onFileChange" />
+      <div>
+        <img class="thumb" v-if="coverUrl" :src="coverUrl" />
+      </div>
+    </div>
+    <!-- <div>
+      <label for="imagens">Imagens do Produto</label>
+      <input multiple id="imagens" type="file" @change="onFileChange2" />
+    </div> -->
+
+    <button class="btnSalvar" @click="editarProduto">
+      <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
+    </button>
+  </div>
+
+  <div v-if="cadastro == 3" class="form">
+    <h1>Cadastrar Categoria:</h1>
+    <input
+      v-model="categoria.nome"
+      class="inputTexto"
+      type="text"
+      placeholder="Nome da Categoria"
+      required
+    />
+    <input
+      v-model="categoria.descricao"
+      class="inputTexto"
+      type="text"
+      placeholder="Descrição da Categoria"
+      required
+    />
     <button class="btnSalvar" @click="saveCat">
+      <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
+    </button>
+  </div>
+  <div v-if="cadastro == 4" class="form">
+    <h1>Cadastrar Fabricante:</h1>
+    <input
+      v-model="fabricante.nome"
+      class="inputTexto"
+      type="text"
+      placeholder="Nome do Fabricante"
+      required
+    />
+    <input
+      v-model="fabricante.descricao"
+      class="inputTexto"
+      type="text"
+      placeholder="Descrição do Fabricante"
+      required
+    />
+    <input
+      v-model="fabricante.site"
+      class="inputTexto"
+      type="site"
+      placeholder="Site do Fabricante"
+      required
+    />
+    <input
+      v-model="fabricante.email"
+      class="inputTexto"
+      type="email"
+      placeholder="Email do Fabricante"
+      required
+    />
+    <button class="btnSalvar" @click="saveFab">
       <font-awesome-icon icon="fa-solid fa-floppy-disk" /> <span>Salvar</span>
     </button>
   </div>
