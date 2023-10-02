@@ -1,3 +1,21 @@
+<script setup>
+import axios from 'axios'
+import { ref } from 'vue'
+
+const user = ref({
+  email: '',
+  password: ''
+})
+
+const logar = async () => {
+  const { data } = await axios.post('/token/', user.value)
+  if (data) {
+    localStorage.setItem('token', data.access)
+    console.log(data)
+  }
+}
+</script>
+
 <template>
   <main>
     <body>
@@ -5,12 +23,12 @@
         <h1 class="title">Login</h1>
         <form method="">
           <div class="txt_field">
-            <input type="text" required />
+            <input v-model="user.email" type="email" required />
             <span></span>
-            <label>Nome de usuário</label>
+            <label>Email</label>
           </div>
           <div class="txt_field">
-            <input type="password" required />
+            <input v-model="user.password" type="password" required />
             <span></span>
             <label>Senha</label>
           </div>
@@ -20,7 +38,7 @@
           >
             Esqueceu sua senha?
           </div>
-          <input type="submit" value="Login" />
+          <input @click="logar" type="submit" value="Login" />
           <div class="signup_link">
             Não tem conta? <RouterLink to="/cadastro"> Crie uma!</RouterLink>
           </div>
