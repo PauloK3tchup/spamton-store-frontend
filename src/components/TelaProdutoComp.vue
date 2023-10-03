@@ -1,13 +1,12 @@
 <script>
-import testeApi from '../api/teste'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
-import axios from 'axios'
+import ProdutosApi from '../api/produtos'
+const produtosApi = new ProdutosApi()
 
 export default {
   data() {
     return {
-      produtos: testeApi.produtos,
       produto: {},
       imagens: [],
       imagensSim: []
@@ -20,16 +19,14 @@ export default {
   methods: {
     ...mapActions(useCounterStore, ['pesquisar'])
   },
-  mounted() {
-    axios
-      .get('/produtos/' + this.prodSelec)
-      .then((response) => {
-        this.produto = response.data
-        this.imagensSim = this.produto.imagens
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  async mounted() {
+    try {
+      const response = await produtosApi.buscarProduto(this.prodSelec)
+      this.produto = response
+      this.imagensSim = this.produto.imagens
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 </script>
