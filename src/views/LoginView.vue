@@ -1,17 +1,40 @@
-<script setup>
-import axios from 'axios'
-import { ref } from 'vue'
+<script>
+import LoginApi from '../api/login'
+import { reactive } from 'vue'
+const loginApi = new LoginApi()
 
-const user = ref({
-  email: '',
-  password: ''
-})
-
-const logar = async () => {
-  const { data } = await axios.post('/token/', user.value)
-  if (data) {
-    localStorage.setItem('token', data.access)
-    console.log(data)
+export default {
+  data() {
+    return {
+      user: reactive({
+        email: '',
+        password: ''
+      }),
+      erro: '',
+      token: localStorage.getItem('token')
+    }
+  },
+  methods: {
+    async logar() {
+      try {
+        const response = await loginApi.Login(this.user)
+        localStorage.setItem('token', response.access)
+        console.log(response.access)
+        this.user = reactive({
+          email: '',
+          password: ''
+        })
+        this.erro = ''
+        this.token = localStorage.getItem('token')
+      } catch (error) {
+        console.log(error)
+        this.erro = 'Email ou senha incorretos'
+      }
+    },
+    deslogar() {
+      localStorage.removeItem('token')
+      this.token = ''
+    }
   }
 }
 </script>
@@ -19,7 +42,7 @@ const logar = async () => {
 <template>
   <main>
     <body>
-      <div class="center">
+      <div v-if="!token" class="center">
         <h1 class="title">Login</h1>
         <form method="">
           <div class="txt_field">
@@ -38,12 +61,14 @@ const logar = async () => {
           >
             Esqueceu sua senha?
           </div>
-          <input @click="logar" type="submit" value="Login" />
+          <button @click="logar" type="button" class="btn-logar">Login</button>
+          <p class="textoErro">{{ erro }}</p>
           <div class="signup_link">
             Não tem conta? <RouterLink to="/cadastro"> Crie uma!</RouterLink>
           </div>
         </form>
       </div>
+      <button v-else @click="deslogar" type="button" class="btn-logar">Deslogin</button>
     </body>
   </main>
 </template>

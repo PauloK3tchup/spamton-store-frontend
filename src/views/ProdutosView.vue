@@ -1,9 +1,9 @@
 <script>
 import ProdutoComp from '../components/ProdutoComp.vue'
-import testeApi from '../api/teste'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
-import axios from 'axios'
+import ProdutosApi from '../api/produtos'
+const produtosApi = new ProdutosApi()
 
 export default {
   components: {
@@ -11,7 +11,6 @@ export default {
   },
   data() {
     return {
-      produtos: testeApi.produtos,
       ProdutosRecentes: []
     }
   },
@@ -20,31 +19,27 @@ export default {
     ...mapState(useCounterStore, ['prodId', 'prodSelec', 'pesquisa'])
   },
   watch: {
-    pesquisa() {
-      axios
-        .get('/produtos/')
-        .then((response) => {
-          this.ProdutosRecentes = response.data.filter((produto) => {
-            return produto.nome.toLowerCase().includes(this.pesquisa.toLowerCase())
-          })
+    async pesquisa() {
+      try {
+        const response = await produtosApi.buscarProdutos()
+        this.ProdutosRecentes = response.filter((produto) => {
+          return produto.nome.toLowerCase().includes(this.pesquisa.toLowerCase())
         })
-        .catch((error) => {
-          console.log(error)
-        })
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   methods: {
     ...mapActions(useCounterStore, ['selecionar', 'pesquisar']),
 
-    getProdutosRecentes() {
-      axios
-        .get('/produtos/')
-        .then((response) => {
-          this.ProdutosRecentes = response.data
-        })
-        .catch((error) => {
-          console.log(error)
-        })
+    async getProdutosRecentes() {
+      try {
+        const response = await produtosApi.buscarProdutos()
+        this.ProdutosRecentes = response
+      } catch (error) {
+        console.log(error)
+      }
     }
   },
   mounted() {
