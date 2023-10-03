@@ -13,7 +13,8 @@ export default {
         password: ''
       }),
       erro: '',
-      token: localStorage.getItem('token')
+      token: localStorage.getItem('token'),
+      info: ''
     }
   },
   methods: {
@@ -43,11 +44,16 @@ export default {
       try {
         const response = await usuarioApi.buscarUsuario(this.token)
         console.log(response)
-        const info = await usuarioApi.buscarUsuarioPorId(response.user_id)
-        console.log(info)
+        this.info = await usuarioApi.buscarUsuarioPorId(response.user_id)
+        console.log(this.info)
       } catch (error) {
         console.log(error)
       }
+    }
+  },
+  mounted() {
+    if (this.token) {
+      this.buscarUsuario()
     }
   }
 }
@@ -83,7 +89,9 @@ export default {
         </form>
       </div>
       <button v-else @click="deslogar" type="button" class="btn-logar">Deslogin</button>
-      <button @click="buscarUsuario" type="button" class="btn-logar">BuscarInfo</button>
+      <div v-if="token">
+        <p>{{ info }}</p>
+      </div>
     </body>
   </main>
 </template>

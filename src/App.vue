@@ -37,10 +37,11 @@ export default {
     }
   },
   async mounted() {
-    await this.verificarStaff()
+    if (this.token) {
+      await this.verificarStaff()
+    }
   }
 }
-
 library.add(faShoppingCart, faSearch, faBars)
 </script>
 <template>
