@@ -1,7 +1,9 @@
 <script>
 import LoginApi from '../api/login'
+import UsuarioApi from '../api/userinfo'
 import { reactive } from 'vue'
 const loginApi = new LoginApi()
+const usuarioApi = new UsuarioApi()
 
 export default {
   data() {
@@ -26,6 +28,7 @@ export default {
         })
         this.erro = ''
         this.token = localStorage.getItem('token')
+        window.location.reload()
       } catch (error) {
         console.log(error)
         this.erro = 'Email ou senha incorretos'
@@ -34,6 +37,17 @@ export default {
     deslogar() {
       localStorage.removeItem('token')
       this.token = ''
+      window.location.reload()
+    },
+    async buscarUsuario() {
+      try {
+        const response = await usuarioApi.buscarUsuario(this.token)
+        console.log(response)
+        const info = await usuarioApi.buscarUsuarioPorId(response.user_id)
+        console.log(info)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 }
@@ -69,6 +83,7 @@ export default {
         </form>
       </div>
       <button v-else @click="deslogar" type="button" class="btn-logar">Deslogin</button>
+      <button @click="buscarUsuario" type="button" class="btn-logar">BuscarInfo</button>
     </body>
   </main>
 </template>

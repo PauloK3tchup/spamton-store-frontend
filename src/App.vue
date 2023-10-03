@@ -1,17 +1,53 @@
-<script setup>
+<script>
 import { RouterView } from 'vue-router'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import HeaderComp from './components/HeaderGestor.vue'
+import UsuarioApi from './api/userinfo'
+import HeaderGestor from './components/HeaderGestor.vue'
+import HeaderComp from './components/HeaderComp.vue'
+const usuarioApi = new UsuarioApi()
+
+export default {
+  components: {
+    HeaderGestor,
+    HeaderComp,
+    RouterView
+  },
+  data() {
+    return {
+      staff: false,
+      token: localStorage.getItem('token')
+    }
+  },
+  methods: {
+    async verificarStaff() {
+      try {
+        const response = await usuarioApi.buscarUsuario(this.token)
+        console.log(response)
+        const info = await usuarioApi.buscarUsuarioPorId(response.user_id)
+        console.log(info)
+        if (info.is_staff) {
+          this.staff = true
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },
+  async mounted() {
+    await this.verificarStaff()
+  }
+}
 
 library.add(faShoppingCart, faSearch, faBars)
 </script>
 <template>
   <body>
     <header>
-      <HeaderComp />
+      <HeaderGestor v-if="staff" />
+      <HeaderComp v-else />
     </header>
     <RouterView v-slot="{ Component }">
       <transition name="fade" mode="out-in">

@@ -17,6 +17,7 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "axios": "^1.4.0",
     "form-data": "^4.0.0",
+    "jsonwebtoken": "^9.0.2",
     "pinia": "^2.0.36",
     "vue": "^3.3.2",
     "vue-awesome-swiper": "^5.0.1",

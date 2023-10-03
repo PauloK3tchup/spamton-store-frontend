@@ -11,7 +11,8 @@ export default {
   },
   data() {
     return {
-      pesquisaValue: ''
+      pesquisaValue: '',
+      token: localStorage.getItem('token')
     }
   },
   computed: {
@@ -62,8 +63,9 @@ export default {
         <RouterLink class="lado" to="/about">Categorias</RouterLink>
         <RouterLink class="lado" to="/about">Histórico</RouterLink>
         <RouterLink class="lado" to="/about">Contato</RouterLink>
-        <RouterLink class="lado" to="/login">Entrar</RouterLink>
-        <RouterLink class="lado" to="/cadastro">Criar Conta</RouterLink>
+        <RouterLink class="lado" v-if="!token" to="/login">Entrar</RouterLink>
+        <RouterLink class="lado" v-else to="/login">Conta</RouterLink>
+        <RouterLink class="lado" v-if="!token" to="/cadastro">Criar Conta</RouterLink>
       </div>
     </div>
   </div>

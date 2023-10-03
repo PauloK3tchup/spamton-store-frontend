@@ -61,7 +61,7 @@ export default {
         <RouterLink class="lado" to="/tabela">Home</RouterLink>
         <RouterLink class="lado" to="/cadastrar">Cadastro</RouterLink>
         <RouterLink class="lado" to="/registro">Registro</RouterLink>
-        <RouterLink class="lado" to="/conta">Conta</RouterLink>
+        <RouterLink class="lado" to="/login">Conta</RouterLink>
       </div>
     </div>
   </div>
