@@ -50,7 +50,6 @@ export default {
       <h1 v-if="!produto.promo" class="precoProd">R${{ produto.preco }}</h1>
       <p v-if="produto.promo" class="precoAntigo">R${{ produto.preco }}</p>
       <h1 v-if="produto.promo" class="precoPromo">R${{ produto.precoPromo }}</h1>
-      <p>{{ produto.descricao }}</p>
       <h3 class="nomeProd">{{ produto.nome }}</h3>
       <div class="botaoComprar">
         <h3>Comprar</h3>
@@ -58,6 +57,13 @@ export default {
       <div class="botaoCarrinho">
         <h3>Carrinho</h3>
       </div>
+    </div>
+  </div>
+  <div class="caixaProd2">
+    <div class="desc">
+      <h3><span class="negrito">Descrição: </span>{{ produto.descricao }}</h3>
+      <!-- <h3><span class="negrito">Categoria: </span>{{ produto.categoria.nome }}</h3>
+      <h3><span class="negrito">Fabricante: </span>{{ produto.fabricante.nome }}</h3> -->
     </div>
   </div>
 </template>
@@ -70,6 +76,30 @@ export default {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.negrito {
+  font-weight: bold;
+}
+
+.caixaProd2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.desc {
+  display: flex;
+  width: 1000px;
+  margin: 10px 10px 10px 10px;
+  padding: 10px;
+  height: 500px;
+  background-color: rgb(0, 0, 0);
+  display: inline-block;
+  vertical-align: top;
+  color: white;
 }
 
 .botaoComprar {
