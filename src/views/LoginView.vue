@@ -88,13 +88,55 @@ export default {
           </div>
         </form>
       </div>
-      <button v-else @click="deslogar" type="button" class="btn-logar">Deslogin</button>
-      <div v-if="token">
-        <p>{{ info }}</p>
+      <div v-else class="center">
+        <div class="txt_field" v-if="token">
+          <div class="infos">
+            <img
+              class="foto_perfil"
+              v-if="info.imagem_perfil"
+              :src="info.imagem_perfil"
+              alt="Imagem de Perfil"
+            />
+            <img
+              class="foto_perfil"
+              v-else
+              src="../assets/default-avatar-icon.jpg"
+              alt="Imagem de Perfil"
+            />
+            <h1>{{ info.first_name }} {{ info.last_name }}</h1>
+            <h3><span class="negrito">Email: </span>{{ info.email }}</h3>
+            <h3><span class="negrito">CPF: </span>{{ info.cpf }}</h3>
+            <h3><span class="negrito">Telefone: </span>{{ info.telefone }}</h3>
+            <button @click="deslogar" type="button" class="btn-logar ciminha">Deslogin</button>
+          </div>
+        </div>
       </div>
     </body>
   </main>
 </template>
 <style scoped>
 @import '../assets/login.css';
+
+.foto_perfil {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ciminha {
+  margin-top: 10px;
+}
+
+.infos {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.negrito {
+  font-weight: bold;
+}
 </style>

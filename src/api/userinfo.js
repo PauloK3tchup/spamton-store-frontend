@@ -7,8 +7,6 @@ export default class UsuarioApi {
     } catch (e) {
       return null
     }
-    // const { data } = await api.get('/api/usuarios/' + parseJwt(token).id)
-    // return data
   }
   async buscarUsuarioPorId(id) {
     const { data } = await api.get('/api/usuarios/' + id)
