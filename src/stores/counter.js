@@ -7,7 +7,8 @@ export const useCounterStore = defineStore('counter', () => {
   const pesquisa = ref('')
   const selec = ref(0)
   function selecionar(prodId) {
-    prodSelec.value = prodId
+    localStorage.setItem('prodSelec', String(prodId))
+    prodSelec.value = localStorage.getItem('prodSelec')
     selec.value = 2
   }
   function pesquisar(pesquisa) {

@@ -20,6 +20,7 @@ export default {
     ...mapActions(useCounterStore, ['pesquisar'])
   },
   async mounted() {
+    this.prodSelec = localStorage.getItem('prodSelec')
     try {
       const response = await produtosApi.buscarProduto(this.prodSelec)
       this.produto = response

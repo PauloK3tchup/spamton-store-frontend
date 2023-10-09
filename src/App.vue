@@ -50,7 +50,7 @@ library.add(faShoppingCart, faSearch, faBars)
       <HeaderGestor v-if="staff" />
       <HeaderComp v-else />
     </header>
-    <RouterView v-slot="{ Component }">
+    <RouterView :key="$route.fullPath" v-slot="{ Component }">
       <transition name="fade" mode="out-in">
         <component :is="Component" />
       </transition>
