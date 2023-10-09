@@ -1,11 +1,15 @@
 <script>
 import testeApi from '../api/teste'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
 import ProdutosApi from '../api/produtos'
 const produtosApi = new ProdutosApi()
 
 export default {
+  components: {
+    FontAwesomeIcon
+  },
   data() {
     return {
       produtos: testeApi.produtos,
@@ -17,7 +21,7 @@ export default {
     ...mapState(useCounterStore, ['prodId', 'prodSelec', 'pesquisa'])
   },
   watch: {
-    async esquisa() {
+    async pesquisa() {
       try {
         const response = await produtosApi.buscarProdutos()
         this.ProdutosRecentes = response.filter((produto) => {
@@ -80,13 +84,13 @@ export default {
             <td v-else>Produto sem fabricante</td>
             <td>
               <button class="btn-excluir" @click="excluir(produto)">
-                <font-awesome-icon icon="fa-trash" /> <span>Excluir</span>
+                <FontAwesomeIcon icon="fa-trash-can" />
               </button>
               <button
                 class="btn-editar"
                 @click="selecionar(produto.id), this.$router.push('/cadastrar')"
               >
-                <font-awesome-icon icon="fa-pencil" /> <span>Editar</span>
+                <FontAwesomeIcon icon="fa-pencil" />
               </button>
             </td>
           </tr>
@@ -100,6 +104,54 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.btn-excluir {
+  background-color: #ff0000;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  border-radius: 5px;
+  margin: 5px;
+  transition: 0.15s;
+}
+
+.btn-excluir:hover {
+  background-color: #ffffff;
+  color: rgb(255, 0, 0);
+  transform: scale(1.1);
+}
+
+.btn-excluir:active {
+  transform: scale(0.9);
+}
+
+.btn-editar {
+  background-color: #0000ff;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  border-radius: 5px;
+  margin: 5px;
+  transition: 0.15s;
+}
+
+.btn-editar:hover {
+  background-color: #ffffff;
+  color: #0000ff;
+  transform: scale(1.1);
+}
+
+.btn-editar:active {
+  transform: scale(0.9);
 }
 
 .tabela {

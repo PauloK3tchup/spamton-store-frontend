@@ -81,7 +81,7 @@ export default {
           >
             Esqueceu sua senha?
           </div>
-          <button @click="logar" type="button" class="btn-logar">Login</button>
+          <button @click="logar" type="button" class="btn-logar">Entrar</button>
           <p class="textoErro">{{ erro }}</p>
           <div class="signup_link">
             Não tem conta? <RouterLink to="/cadastro"> Crie uma!</RouterLink>
@@ -104,10 +104,10 @@ export default {
               alt="Imagem de Perfil"
             />
             <h1>{{ info.first_name }} {{ info.last_name }}</h1>
-            <h3><span class="negrito">Email: </span>{{ info.email }}</h3>
+            <h3 class="ciminha"><span class="negrito">Email: </span>{{ info.email }}</h3>
             <h3><span class="negrito">CPF: </span>{{ info.cpf }}</h3>
             <h3><span class="negrito">Telefone: </span>{{ info.telefone }}</h3>
-            <button @click="deslogar" type="button" class="btn-logar ciminha">Deslogin</button>
+            <button @click="deslogar" type="button" class="btn-logar ciminha">Sair</button>
           </div>
         </div>
       </div>
@@ -120,12 +120,16 @@ export default {
 .foto_perfil {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 240px;
   object-fit: cover;
 }
 
 .ciminha {
-  margin-top: 10px;
+  margin-top: 20px;
+}
+
+.baixinho {
+  margin-bottom: 20px;
 }
 
 .infos {
