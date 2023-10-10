@@ -1,16 +1,25 @@
 <script>
 import { RouterView } from 'vue-router'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faPencil, faShoppingCart, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import {
+  faEnvelope,
+  faPencil,
+  faPhone,
+  faShoppingCart,
+  faTrashCan
+} from '@fortawesome/free-solid-svg-icons'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import UsuarioApi from './api/userinfo'
 import HeaderGestor from './components/HeaderGestor.vue'
 import HeaderComp from './components/HeaderComp.vue'
+import FooterComp from './components/FooterComp.vue'
+import { faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons'
 const usuarioApi = new UsuarioApi()
 
 export default {
   components: {
+    FooterComp,
     HeaderGestor,
     HeaderComp,
     RouterView
@@ -42,7 +51,17 @@ export default {
     }
   }
 }
-library.add(faShoppingCart, faSearch, faBars, faTrashCan, faPencil)
+library.add(
+  faShoppingCart,
+  faSearch,
+  faBars,
+  faTrashCan,
+  faPencil,
+  faGithub,
+  faEnvelope,
+  faPhone,
+  faInstagram
+)
 </script>
 <template>
   <body>
@@ -55,6 +74,7 @@ library.add(faShoppingCart, faSearch, faBars, faTrashCan, faPencil)
         <component :is="Component" />
       </transition>
     </RouterView>
+    <FooterComp />
   </body>
 </template>
 

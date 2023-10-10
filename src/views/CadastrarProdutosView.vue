@@ -123,8 +123,10 @@ export default {
     },
 
     async buscarProduto() {
-      const data = await produtosApi.buscarProduto(this.produto.id)
-      this.produto = data
+      if (this.cadastro == 2) {
+        const data = await produtosApi.buscarProduto(this.produto.id)
+        this.produto = data
+      }
     },
     edit() {
       this.cadastro = this.selec

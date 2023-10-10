@@ -33,7 +33,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(useCounterStore, ['selecionar', 'pesquisar']),
+    ...mapActions(useCounterStore, ['selecionar2', 'pesquisar']),
 
     async getProdutosRecentes() {
       try {
@@ -88,7 +88,7 @@ export default {
               </button>
               <button
                 class="btn-editar"
-                @click="selecionar(produto.id), this.$router.push('/cadastrar')"
+                @click="selecionar2(produto.id), this.$router.push('/cadastrar')"
               >
                 <FontAwesomeIcon icon="fa-pencil" />
               </button>

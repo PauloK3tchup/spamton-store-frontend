@@ -9,7 +9,9 @@ export default {
     return {
       produto: {},
       imagens: [],
-      imagensSim: []
+      imagensSim: [],
+      categoria: '',
+      fabricante: ''
     }
   },
   computed: {
@@ -25,6 +27,8 @@ export default {
       const response = await produtosApi.buscarProduto(this.prodSelec)
       this.produto = response
       this.imagensSim = this.produto.imagens
+      this.categoria = this.produto.categoria
+      this.fabricante = this.produto.fabricante
     } catch (error) {
       console.log(error)
     }
@@ -62,9 +66,37 @@ export default {
   </div>
   <div class="caixaProd2">
     <div class="desc">
-      <h3><span class="negrito">Descrição: </span>{{ produto.descricao }}</h3>
-      <!-- <h3><span class="negrito">Categoria: </span>{{ produto.categoria.nome }}</h3>
-      <h3><span class="negrito">Fabricante: </span>{{ produto.fabricante.nome }}</h3> -->
+      <div class="descricao">
+        <h3><span class="negrito">Descrição: </span>{{ produto.descricao }}</h3>
+      </div>
+      <hr />
+      <div class="coisasDiv">
+        <div class="fabricante">
+          <h3><span class="negrito">Fabricante: </span>{{ fabricante.nome }}</h3>
+          <h3 class="italico">"{{ fabricante.descricao }}"</h3>
+          <h3 v-if="fabricante.email">
+            <span class="negrito">Email para Contato: </span>{{ fabricante.email }}
+          </h3>
+          <h3 v-if="fabricante.site">
+            <span class="negrito">Website: </span>
+            <a :href="fabricante.site">{{ fabricante.site }}</a>
+          </h3>
+        </div>
+        <div class="categoria">
+          <h3><span class="negrito">Categoria: </span>{{ categoria.nome }}</h3>
+          <h3 class="italico">"{{ categoria.descricao }}"</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="caixaProd2">
+    <div class="desc">
+      <div class="descricao"><h1>Comentários</h1></div>
+      <hr />
+      <div class="inputComment">
+        <input type="text" id="comentario" placeholder="Escreva Um Comentário" />
+        <button class="botaoEnviar"><h3>Enviar</h3></button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,6 +111,48 @@ export default {
   height: 100%;
 }
 
+#comentario {
+  width: 80%;
+  height: 40px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 2%;
+  border: none;
+}
+
+.precoAntigo {
+  text-decoration: line-through;
+  color: rgb(255, 0, 0);
+}
+
+.precoPromo {
+  color: rgb(0, 255, 0);
+}
+
+.italico {
+  font-style: italic;
+}
+
+.descricao {
+  padding: 2%;
+}
+
+.fabricante {
+  display: inline-block;
+  width: 45%;
+  height: auto;
+  padding: 2%;
+  vertical-align: top;
+}
+
+.categoria {
+  display: inline-block;
+  width: 45%;
+  height: auto;
+  padding: 2%;
+  vertical-align: top;
+}
+
 .negrito {
   font-weight: bold;
 }
@@ -91,16 +165,39 @@ export default {
   height: 100%;
 }
 
+.precoProd,
+.precoPromo {
+  font-size: 40px;
+}
+
 .desc {
   display: flex;
   width: 1000px;
   margin: 10px 10px 10px 10px;
   padding: 10px;
-  height: 500px;
+  height: auto;
   background-color: rgb(0, 0, 0);
   display: inline-block;
   vertical-align: top;
   color: white;
+}
+
+.botaoEnviar {
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 10px;
+  background-color: rgb(255, 0, 0);
+  color: white;
+  cursor: pointer;
+  transition: 0.15s;
+  width: 10%;
+  height: 40px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 2%;
+  border: none;
 }
 
 .botaoComprar {
@@ -120,11 +217,13 @@ export default {
 }
 
 .botaoComprar:hover,
+.botaoEnviar:hover,
 .botaoCarrinho:hover {
   transform: scale(1.1);
 }
 
 .botaoComprar:active,
+.botaoEnviar:active,
 .botaoCarrinho:active {
   transform: scale(0.9);
 }
