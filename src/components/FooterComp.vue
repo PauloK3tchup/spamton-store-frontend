@@ -14,8 +14,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
             <span><FontAwesomeIcon icon="fa-envelope" /> &nbsp; paulocesarifc@gmail.com</span>
           </div>
           <div class="socials">
-            <a href="#"><FontAwesomeIcon icon="fa-brands fa-github" /></a>
-            <a href="#"><FontAwesomeIcon icon="fa-brands fa-instagram" /></a>
+            <a href="https://github.com/PauloK3tchup/spamton-store-docs.git"
+              ><FontAwesomeIcon icon="fa-brands fa-github"
+            /></a>
+            <a href="https://www.instagram.com/paulok3tchup/"
+              ><FontAwesomeIcon icon="fa-brands fa-instagram"
+            /></a>
           </div>
         </div>
       </div>
@@ -27,7 +31,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   background-color: black;
   color: #fff;
   font-size: 14px;
-  padding: 20px 0;
+  padding: 15px 0;
   position: relative;
   bottom: 0;
   width: 100%;

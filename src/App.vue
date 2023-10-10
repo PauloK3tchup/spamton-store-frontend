@@ -69,16 +69,29 @@ library.add(
       <HeaderGestor v-if="staff" />
       <HeaderComp v-else />
     </header>
-    <RouterView :key="$route.fullPath" v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </RouterView>
+    <div class="page-container">
+      <div class="content-wrap">
+        <RouterView :key="$route.fullPath" v-slot="{ Component }">
+          <transition name="fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </RouterView>
+      </div>
+    </div>
     <FooterComp />
   </body>
 </template>
 
 <style scoped>
+.page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+.content-wrap {
+  padding-bottom: 2.5rem;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: 0.3s ease;
