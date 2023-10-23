@@ -36,6 +36,7 @@ export default {
         const response = await usuarioApi.buscarUsuario(this.token)
         console.log(response)
         const info = await usuarioApi.buscarUsuarioPorId(response.user_id)
+        localStorage.setItem('id', info.id)
         console.log(info)
         if (info.is_staff) {
           this.staff = true

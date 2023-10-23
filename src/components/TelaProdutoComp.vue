@@ -2,16 +2,30 @@
 import { useCounterStore } from '../stores/counter'
 import { mapStores, mapActions, mapState } from 'pinia'
 import ProdutosApi from '../api/produtos'
+import ComprasApi from '../api/compras'
+import { reactive } from 'vue'
 const produtosApi = new ProdutosApi()
+const comprasApi = new ComprasApi()
 
 export default {
   data() {
     return {
+      token_id: localStorage.getItem('id'),
       produto: {},
+      id: '',
       imagens: [],
       imagensSim: [],
       categoria: '',
-      fabricante: ''
+      fabricante: '',
+      compra: reactive({
+        itens: [
+          {
+            produto: '',
+            quantidade: 1
+          }
+        ],
+        usuario: ''
+      })
     }
   },
   computed: {
@@ -19,7 +33,23 @@ export default {
     ...mapState(useCounterStore, ['prodId', 'prodSelec'])
   },
   methods: {
-    ...mapActions(useCounterStore, ['pesquisar'])
+    ...mapActions(useCounterStore, ['pesquisar']),
+
+    async carrinho() {
+      ;(this.compra.itens = [
+        {
+          produto: this.id,
+          quantidade: 1
+        }
+      ]),
+        (this.compra.usuario = parseInt(this.token_id))
+      try {
+        await comprasApi.adicionarCompra(this.compra)
+        alert('Produto adicionado ao carrinho')
+      } catch (error) {
+        console.log(error)
+      }
+    }
   },
   async mounted() {
     this.prodSelec = localStorage.getItem('prodSelec')
@@ -29,6 +59,7 @@ export default {
       this.imagensSim = this.produto.imagens
       this.categoria = this.produto.categoria
       this.fabricante = this.produto.fabricante
+      this.id = this.produto.id
     } catch (error) {
       console.log(error)
     }
@@ -59,7 +90,7 @@ export default {
       <div class="botaoComprar">
         <h3>Comprar</h3>
       </div>
-      <div class="botaoCarrinho">
+      <div @click="carrinho" class="botaoCarrinho">
         <h3>Carrinho</h3>
       </div>
     </div>
