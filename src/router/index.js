@@ -6,6 +6,7 @@ import CadastroView from '../views/CadastroView.vue'
 import TelaProdutoComp from '../components/TelaProdutoComp.vue'
 import TabelaView from '../views/TabelaView.vue'
 import CadastrarProdutosView from '../views/CadastrarProdutosView.vue'
+import CarrinhoView from '../components/CarrinhoComp.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -54,6 +55,11 @@ const router = createRouter({
       path: '/conta',
       name: 'conta',
       component: AboutView
+    },
+    {
+      path: '/carrinho',
+      name: 'carrinho',
+      component: CarrinhoView
     }
   ]
 })

@@ -47,7 +47,7 @@ export default {
               <FontAwesomeIcon icon="fa-search" />
             </button>
           </div>
-          <button class="carrinho">
+          <button @click="this.$router.push('/carrinho')" class="carrinho">
             <FontAwesomeIcon icon="fa-shopping-cart" />
           </button>
         </div>

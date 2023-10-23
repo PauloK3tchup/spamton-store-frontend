@@ -37,6 +37,7 @@ export default {
         console.log(response)
         const info = await usuarioApi.buscarUsuarioPorId(response.user_id)
         localStorage.setItem('id', info.id)
+        localStorage.setItem('email', info.email)
         console.log(info)
         if (info.is_staff) {
           this.staff = true
