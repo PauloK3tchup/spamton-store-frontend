@@ -105,6 +105,31 @@
     border-color: #ffffff;
     transform: scale(0.9);
   }
+
+  .btnMandar {
+    width: 100%;
+    height: 50px;
+    border: 1px solid black;
+    background: rgb(255, 224, 50);
+    border-radius: 25px;
+    font-size: 18px;
+    color: #000000;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+    transition: 0.25s;
+  }
+
+
+  .btnMandar:hover {
+    border-color: #ffffff;
+    transform: scale(1.1);
+  }
+  
+  .btnMandar:active {
+    border-color: #ffffff;
+    transform: scale(0.9);
+  }
   
   .btn-logar{
     width: 100%;

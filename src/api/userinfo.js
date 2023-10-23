@@ -12,4 +12,8 @@ export default class UsuarioApi {
     const { data } = await api.get('/api/usuarios/' + id)
     return data
   }
+  async adicionarUsuario(usuario) {
+    const { data } = await api.post('/api/usuarios/', usuario)
+    return data
+  }
 }
