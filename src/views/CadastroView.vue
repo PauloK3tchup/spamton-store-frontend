@@ -20,11 +20,13 @@ export default {
         if (this.usuario.password === this.password2) {
           const response = await usuarioApi.adicionarUsuario(this.usuario)
           console.log(response)
+          this.$router.push('/login')
         } else {
           alert('As senhas não são iguais')
         }
       } catch (error) {
         console.log(error)
+        alert('Verifique os dados e tente novamente')
       }
     }
   }
@@ -62,7 +64,7 @@ export default {
             <span></span>
             <label>Confirmar Senha</label>
           </div>
-          <button class="btnMandar" @click="criarUsuario">Registrar</button>
+          <button type="button" class="btnMandar" @click="criarUsuario">Registrar</button>
           <div class="signup_link">
             Já tem conta? <RouterLink to="/login"> Entre agora!</RouterLink>
           </div>
