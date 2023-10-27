@@ -27,6 +27,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
   </footer>
 </template>
 <style scoped>
+footer {
+  margin-top: 10%;
+}
+
 .footer {
   background-color: black;
   color: #fff;

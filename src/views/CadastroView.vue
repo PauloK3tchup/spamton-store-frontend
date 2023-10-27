@@ -9,7 +9,9 @@ export default {
         first_name: '',
         last_name: '',
         email: '',
-        password: ''
+        password: '',
+        cpf: '',
+        telefone: ''
       },
       password2: ''
     }
@@ -53,6 +55,16 @@ export default {
             <input v-model="usuario.email" type="text" required />
             <span></span>
             <label>Email</label>
+          </div>
+          <div class="txt_field">
+            <input v-model="usuario.cpf" type="text" required />
+            <span></span>
+            <label>CPF</label>
+          </div>
+          <div class="txt_field">
+            <input v-model="usuario.telefone" type="text" required />
+            <span></span>
+            <label>Telefone</label>
           </div>
           <div class="txt_field">
             <input v-model="usuario.password" type="password" required />
