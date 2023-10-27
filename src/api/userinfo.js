@@ -16,4 +16,8 @@ export default class UsuarioApi {
     const { data } = await api.post('/api/usuarios/', usuario)
     return data
   }
+  async atualizarUsuario(usuario) {
+    const { data } = await api.put(`/api/usuarios/${usuario.id}/`, usuario)
+    return data
+  }
 }
