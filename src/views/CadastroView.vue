@@ -42,44 +42,64 @@ export default {
         <h1 class="title">Criar Conta</h1>
         <form>
           <div class="txt_field">
-            <input v-model="usuario.first_name" type="text" required />
+            <input
+              v-on:keyup.enter="criarUsuario"
+              v-model="usuario.first_name"
+              type="text"
+              required
+            />
             <span></span>
             <label>Nome</label>
           </div>
           <div class="txt_field">
-            <input v-model="usuario.last_name" type="text" required />
+            <input
+              v-on:keyup.enter="criarUsuario"
+              v-model="usuario.last_name"
+              type="text"
+              required
+            />
             <span></span>
             <label>Sobrenome</label>
           </div>
           <div class="txt_field">
-            <input v-model="usuario.email" type="text" required />
+            <input v-on:keyup.enter="criarUsuario" v-model="usuario.email" type="text" required />
             <span></span>
             <label>Email</label>
           </div>
           <div class="txt_field">
-            <input v-model="usuario.cpf" type="text" required />
+            <input v-on:keyup.enter="criarUsuario" v-model="usuario.cpf" type="text" required />
             <span></span>
             <label>CPF</label>
           </div>
           <div class="txt_field">
-            <input v-model="usuario.telefone" type="text" required />
+            <input
+              v-on:keyup.enter="criarUsuario"
+              v-model="usuario.telefone"
+              type="text"
+              required
+            />
             <span></span>
             <label>Telefone</label>
           </div>
           <div class="txt_field">
-            <input v-model="usuario.password" type="password" required />
+            <input
+              v-on:keyup.enter="criarUsuario"
+              v-model="usuario.password"
+              type="password"
+              required
+            />
             <span></span>
             <label>Senha</label>
           </div>
           <div class="txt_field">
-            <input v-model="password2" type="password" required />
+            <input v-on:keyup.enter="criarUsuario" v-model="password2" type="password" required />
             <span></span>
             <label>Confirmar Senha</label>
           </div>
           <button
             type="button"
             class="btnMandar"
-            v-on:keypress.enter="criarUsuario"
+            v-on:keyup.enter="criarUsuario"
             @click="criarUsuario"
           >
             Registrar

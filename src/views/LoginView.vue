@@ -66,12 +66,12 @@ export default {
         <h1 class="title">Login</h1>
         <form method="">
           <div class="txt_field">
-            <input v-model="user.email" type="email" required />
+            <input v-on:keyup.enter="logar" v-model="user.email" type="email" required />
             <span></span>
             <label>Email</label>
           </div>
           <div class="txt_field">
-            <input v-model="user.password" type="password" required />
+            <input v-on:keyup.enter="logar" v-model="user.password" type="password" required />
             <span></span>
             <label>Senha</label>
           </div>
@@ -81,7 +81,7 @@ export default {
           >
             Esqueceu sua senha?
           </div>
-          <button @click="logar" v-on:keypress.enter="logar" type="button" class="btn-logar">
+          <button @click="logar" v-on:keyup.enter="logar" type="button" class="btn-logar">
             Entrar
           </button>
           <p class="textoErro">{{ erro }}</p>
