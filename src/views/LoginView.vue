@@ -81,7 +81,9 @@ export default {
           >
             Esqueceu sua senha?
           </div>
-          <button @click="logar" type="button" class="btn-logar">Entrar</button>
+          <button @click="logar" v-on:keypress.enter="logar" type="button" class="btn-logar">
+            Entrar
+          </button>
           <p class="textoErro">{{ erro }}</p>
           <div class="signup_link">
             Não tem conta? <RouterLink to="/cadastro"> Crie uma!</RouterLink>

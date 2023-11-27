@@ -76,7 +76,14 @@ export default {
             <span></span>
             <label>Confirmar Senha</label>
           </div>
-          <button type="button" class="btnMandar" @click="criarUsuario">Registrar</button>
+          <button
+            type="button"
+            class="btnMandar"
+            v-on:keypress.enter="criarUsuario"
+            @click="criarUsuario"
+          >
+            Registrar
+          </button>
           <div class="signup_link">
             Já tem conta? <RouterLink to="/login"> Entre agora!</RouterLink>
           </div>

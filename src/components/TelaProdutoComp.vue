@@ -48,6 +48,7 @@ export default {
         alert('Produto adicionado ao carrinho')
       } catch (error) {
         console.log(error)
+        alert('Você precisa estar logado para adicionar ao carrinho')
       }
     }
   },
